@@ -13,11 +13,9 @@ router.get("/test", (req, res) => {
   res.json({ msg: "Users route is available" });
 });
 
-/**
- * @fullRoute /api/users/register
- * @access Public
- * @desc User Registration
- */
+//@fullRoute: /api/users/register
+//@access: Public
+//@desc: User Registration
 router.post("/register", (req, res) => {
   // Use model method for checking on exsist email -> return promise
   User.findOne({ email: req.body.email }).then(user => {
@@ -51,6 +49,34 @@ router.post("/register", (req, res) => {
         });
       });
     }
+  });
+});
+
+//  @fullRoute: /api/users/login
+//  @access: Public
+//  @desc: Varification and Loging user | return JSON WEB TOKEN (JWT)
+
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // search a user on DB
+  User.findOne({ email }).then(user => {
+    // check on user exist
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    // compare the passwords
+    bcrypt.compare(password, user.password).then(isIdentical => {
+      // checking on identicals passwords
+      if (isIdentical) {
+        // To the fuature need to JWT
+        res.json({ msg: "Identical is true" });
+      } else {
+        res.status(400).json({ msg: "Password is inccorect" });
+      }
+    });
   });
 });
 
