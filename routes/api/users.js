@@ -4,6 +4,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwtPrivetKey } = require("../../config/keys");
+const passport = require("passport");
 
 // import User Model
 const User = require("../../models/User");
@@ -57,7 +58,6 @@ router.post("/register", (req, res) => {
 //  @fullRoute: /api/users/login
 //  @access: Public
 //  @desc: Varification and Loging user | return JSON WEB TOKEN (JWT)
-
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -92,5 +92,20 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+//  @fullRoute: /api/users/current
+//  @access: Privat
+//  @desc: return current authorizated User
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) =>
+    res.json({
+      // return without password and other
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    })
+);
 
 module.exports = router;
