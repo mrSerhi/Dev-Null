@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { jwtPrivetKey } = require("../../config/keys");
 
 // import User Model
 const User = require("../../models/User");
@@ -71,8 +73,19 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isIdentical => {
       // checking on identicals passwords
       if (isIdentical) {
-        // To the fuature need to JWT
-        res.json({ msg: "Identical is true" });
+        // payload -> obj with some info of logged user
+        const payload = { id: user.id, name: user.name, avatar: user.avatar };
+
+        // create JWT
+        const options = { expiresIn: "1h" }; // how long token will be fired
+        const getToken = (err, token) => {
+          if (err) throw err;
+
+          // Headers: { Authorization: Bearer <token>, Content-Type: application/json, ... }
+          return res.json({ createdToken: true, token: "Bearer " + token });
+        };
+
+        jwt.sign(payload, jwtPrivetKey, options, getToken);
       } else {
         res.status(400).json({ msg: "Password is inccorect" });
       }
