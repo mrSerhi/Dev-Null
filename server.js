@@ -1,7 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 5000;
+
+// set Body Parser Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
