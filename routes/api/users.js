@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
+const bcrypt = require("bcryptjs");
 
 // import User Model
 const User = require("../../models/User");
@@ -24,17 +25,30 @@ router.post("/register", (req, res) => {
     if (user) {
       return res.status(400).json({ msg: "email already exists" });
     } else {
-      // s: size, r: rating, default: default img
-      const awatar = gravatar.url(req.body.email, {
+      // s: size, r: rating, d: default-img
+      const avatar = gravatar.url(req.body.email, {
         s: "200",
-        r: "rg",
-        default: "mm"
+        r: "pg",
+        d: "mm"
       });
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        awatar
+        avatar
+      });
+      // password hashing
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) throw err;
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash; // save hashing password
+          // use mongoose method to save changes and return user object or undefined
+          newUser
+            .save()
+            .then(user => res.json(user))
+            .catch(ex => console.error(ex));
+        });
       });
     }
   });
