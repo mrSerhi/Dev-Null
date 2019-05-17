@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 const { jwtPrivetKey } = require("../../config/keys");
 const passport = require("passport");
 
+// import validation for registration
+const validateRegister = require("../../validation/register");
+
 // import User Model
 const User = require("../../models/User");
 
@@ -20,6 +23,10 @@ router.get("/test", (req, res) => {
 //@access: Public
 //@desc: User Registration
 router.post("/register", (req, res) => {
+  // server side validation
+  const { error, isValid } = validateRegister(req.body);
+  if (!isValid) return res.status(400).json(error);
+
   // Use model method for checking on exsist email -> return promise
   User.findOne({ email: req.body.email }).then(user => {
     // if user exists -> return bad http status and msg else register new User
