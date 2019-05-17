@@ -8,6 +8,8 @@ const passport = require("passport");
 
 // import validation for registration
 const validateRegister = require("../../validation/register");
+// import validation for login
+const validateLogin = require("../../validation/login");
 
 // import User Model
 const User = require("../../models/User");
@@ -31,7 +33,9 @@ router.post("/register", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     // if user exists -> return bad http status and msg else register new User
     if (user) {
-      return res.status(400).json({ msg: "email already exists" });
+      error.email = "email already exists";
+
+      return res.status(400).json(error);
     } else {
       // s: size, r: rating, d: default-img
       const avatar = gravatar.url(req.body.email, {
@@ -66,6 +70,10 @@ router.post("/register", (req, res) => {
 //  @access: Public
 //  @desc: Varification and Loging user | return JSON WEB TOKEN (JWT)
 router.post("/login", (req, res) => {
+  // validation
+  const { error, isValid } = validateLogin(req.body);
+  if (!isValid) return res.status(400).json(error);
+
   const email = req.body.email;
   const password = req.body.password;
 
@@ -73,7 +81,8 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     // check on user exist
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+      error.email = "User not found";
+      return res.status(404).json(error);
     }
 
     // compare the passwords
@@ -94,7 +103,8 @@ router.post("/login", (req, res) => {
 
         jwt.sign(payload, jwtPrivetKey, options, getToken);
       } else {
-        res.status(400).json({ msg: "Password is inccorect" });
+        error.password = "Password is inccorect";
+        res.status(400).json(error);
       }
     });
   });
