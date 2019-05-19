@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
+// include profile validation
+const profileValidation = require("../../validation/profile");
+
 // include Profile model
 const Profile = require("../../models/Profile");
 // include User model
@@ -44,36 +47,38 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // will be used like a storage of errors
-    const error = {};
+    // validation
+    const { error, isValid } = profileValidation(req.body);
+
+    if (!isValid) return res.status(400).json(error);
 
     // create profile object which will be contains getting values of form
-    const profile = {};
-    profile.user = req.user.id;
+    const newProfile = {};
+    newProfile.user = req.user.id;
 
     // checks if values is come in
-    if (req.body.handle) profile.handle = req.body.handle;
-    if (req.body.company) profile.company = req.body.company;
-    if (req.body.website) profile.website = req.body.website;
-    if (req.body.location) profile.location = req.body.location;
-    if (req.body.status) profile.status = req.body.status;
-    if (req.body.bio) profile.bio = req.body.bio;
+    if (req.body.handle) newProfile.handle = req.body.handle;
+    if (req.body.company) newProfile.company = req.body.company;
+    if (req.body.website) newProfile.website = req.body.website;
+    if (req.body.location) newProfile.location = req.body.location;
+    if (req.body.status) newProfile.status = req.body.status;
+    if (req.body.bio) newProfile.bio = req.body.bio;
     if (req.body.githubusername) {
-      profile.githubusername = req.body.githubusername;
+      newProfile.githubusername = req.body.githubusername;
     }
 
     // skills must be a string: 'css, js, html, node'
-    if (typeof skills !== undefined) {
-      profile.skills = req.body.skills.split(",");
+    if (typeof req.body.skills !== "undefined") {
+      newProfile.skills = req.body.skills.split(",");
     }
 
     // social
-    profile.social = {}; //initial is empty obj
-    if (req.body.youtube) profile.social.youtube = req.body.youtube;
-    if (req.body.twitter) profile.social.twitter = req.body.twitter;
-    if (req.body.facebook) profile.social.facebook = req.body.facebook;
-    if (req.body.linkedin) profile.social.linkedin = req.body.linkedin;
-    if (req.body.instagram) profile.social.instagram = req.body.instagram;
+    newProfile.social = {}; //initial is empty obj
+    if (req.body.youtube) newProfile.social.youtube = req.body.youtube;
+    if (req.body.twitter) newProfile.social.twitter = req.body.twitter;
+    if (req.body.facebook) newProfile.social.facebook = req.body.facebook;
+    if (req.body.linkedin) newProfile.social.linkedin = req.body.linkedin;
+    if (req.body.instagram) newProfile.social.instagram = req.body.instagram;
 
     // search on user profile exists
     Profile.findOne({ user: req.user.id }).then(profile => {
@@ -82,19 +87,19 @@ router.post(
         // update
         Profile.findOneAndUpdate(
           { user: req.user.id },
-          { $set: profile },
+          { $set: newProfile },
           { new: true }
         ).then(profile => res.json(profile));
       } else {
-        // check if handle exists
-        Profile.findOne({ handle: req.profile.handle }).then(profile => {
+        // check if a profile handle prop is exists
+        Profile.findOne({ handle: newProfile.handle }).then(profile => {
           if (profile) {
             error.handle = "Handle already exists";
             res.status(400).json(error);
           }
 
           // create new profile
-          new Profile({ profile }).save().then(profile => res.json(profile));
+          new Profile(newProfile).save().then(profile => res.json(profile));
         });
       }
     });
