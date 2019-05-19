@@ -29,6 +29,7 @@ router.get(
     const error = {};
     // search on user profile exists
     Profile.findOne({ user: req.user.id })
+      .populate("user", ["name", "avatar"]) // not included email for response
       .then(profile => {
         error.noprofile = "User don't has a profile yet";
         // check on profile exist
