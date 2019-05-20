@@ -82,6 +82,22 @@ router.get("/user/:user_id", (req, res) => {
     });
 });
 
+// @route-full: GET /api/profile/all
+// @access: Public
+// @desc:  Get all exists profiles
+router.get("/all", (req, res) => {
+  // call model method for getting all profiles / array
+  Profile.find()
+    .then(profiles => {
+      if (!profiles) {
+        res.status(404).json({ msg: `Profiles not found` });
+      }
+
+      res.json(profiles);
+    })
+    .catch(() => res.status(404).json({ msg: `Profiles not found` }));
+});
+
 // @route-full: POST /api/profile/
 // @access: Privat
 // @desc:  Create/Update Current Profile of User
