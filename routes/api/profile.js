@@ -164,4 +164,42 @@ router.post(
   }
 );
 
+// @route-full: POST /api/profile/experience
+// @access: Privat
+// @desc:  add experience to profile
+router.post(
+  "/experience",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        const error = {};
+        if (!profile) {
+          error.noprofile = "Profile not found";
+          res.status(404).json(error);
+        }
+
+        const newExp = {
+          title: req.body.title,
+          company: req.body.company,
+          location: req.body.location,
+          from: req.body.from,
+          to: req.body.to,
+          current: req.body.current,
+          description: req.body.description
+        };
+
+        // add newExp obj of the beggining profile experience array
+        profile.experience.unshift(newExp);
+
+        // save changes and return changed profile
+        profile
+          .save()
+          .then(profile => res.json(profile))
+          .catch(ex => res.status(400).json(ex.message));
+      })
+      .catch(ex => {});
+  }
+);
+
 module.exports = router;
