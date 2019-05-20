@@ -6,6 +6,9 @@ const passport = require("passport");
 // include profile validation
 const profileValidation = require("../../validation/profile");
 
+// include experience validation
+const experienceValidation = require("../../validation/experience");
+
 // include Profile model
 const Profile = require("../../models/Profile");
 // include User model
@@ -171,9 +174,14 @@ router.post(
   "/experience",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    // validation
+    const { error, isValid } = experienceValidation(req.body);
+
+    if (!isValid) return res.status(400).json(error);
+
     Profile.findOne({ user: req.user.id })
       .then(profile => {
-        const error = {};
+        // const error = {};
         if (!profile) {
           error.noprofile = "Profile not found";
           res.status(404).json(error);
@@ -198,7 +206,7 @@ router.post(
           .then(profile => res.json(profile))
           .catch(ex => res.status(400).json(ex.message));
       })
-      .catch(ex => {});
+      .catch(ex => res.status(404).json(ex.message));
   }
 );
 
