@@ -282,4 +282,31 @@ router.delete(
   }
 );
 
+// @route-full: DELETE /api/profile/education/:edu_id
+// @access: Privat
+// @desc:  Remove education from profile
+router.delete(
+  "/education/:edu_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        if (!profile) res.status(404).json({ msg: "Profile not found" });
+
+        // find edu obj and remove from profile
+        const index = profile.education.findIndex(
+          item => item._id === req.params.edu_id
+        );
+        profile.education.splice(index, 1);
+
+        // save
+        profile
+          .save()
+          .then(profile => res.json(profile))
+          .catch(ex => res.status(400).json(ex.message));
+      })
+      .catch(ex => res.status(404).json(ex.message));
+  }
+);
+
 module.exports = router;
