@@ -268,7 +268,7 @@ router.delete(
 
         // find index and remove
         const index = profile.experience.findIndex(
-          _id => _id === req.params.exp_id
+          item => item._id === req.params.exp_id
         );
         profile.experience.splice(index, 1);
 

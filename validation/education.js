@@ -15,13 +15,13 @@ module.exports = function validateEducation(data) {
     error.school = "School is required";
   }
   if (validator.isEmpty(data.degree)) {
-    error.school = "Degree is required";
+    error.degree = "Degree is required";
   }
   if (validator.isEmpty(data.fieldofstudy)) {
-    error.school = "Fieldofstudy is required";
+    error.fieldofstudy = "Fieldofstudy is required";
   }
   if (validator.isEmpty(data.from)) {
-    error.school = "*From field* is required";
+    error.from = "*From field* is required";
   }
 
   return {
