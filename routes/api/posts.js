@@ -6,6 +6,9 @@ const passport = require("passport");
 // include Post schema model
 const Post = require("../../models/Post");
 
+// include Profile schema model
+const Profile = require("../../models/Profile");
+
 // include post validation
 const validationPost = require("../../validation/post");
 
@@ -75,6 +78,32 @@ router.post(
       .save()
       .then(post => res.json(post))
       .catch(ex => res.status(400).json(ex));
+  }
+);
+
+// @route-full: DELETE /api/posts/:post_id
+// @access: Privat
+// @desc:  Delete post
+router.delete(
+  "/:post_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        Post.findById(req.params.post_id)
+          .then(post => {
+            // check if user is current owner of removing post
+            if (post.user.toString() !== req.user.id) {
+              return res
+                .status(401)
+                .json({ noauthuser: "User is not authtorized" });
+            }
+
+            post.remove().then(() => res.json({ postremoved: true }));
+          })
+          .catch(() => res.status(404).json({ msg: "Post not found" }));
+      })
+      .catch(() => res.status(404).json({ msg: "Profile not found" }));
   }
 );
 
