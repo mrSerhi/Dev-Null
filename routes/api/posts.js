@@ -107,4 +107,38 @@ router.delete(
   }
 );
 
+// @route-full: POST /api/posts/like/:post_id
+// @access: Privat
+// @desc:  Add Likes to post
+router.post(
+  "/like/:post_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(() => {
+        Post.findById(req.params.post_id)
+          .then(post => {
+            const countLikes = post.likes.reduce((acc, like) => {
+              if (like.user.toString() === req.user.id) return acc + item;
+
+              return acc;
+            }, 0);
+
+            // check if current user is liked post
+            if (countLikes.length > 0) {
+              return res
+                .status(400)
+                .json({ liked: "User was liked this post" });
+            }
+
+            post.likes.push({ user: req.user.id });
+            // save
+            post.save().then(post => res.json(post));
+          })
+          .catch(() => res.status(404).json({ mag: "Post not found" }));
+      })
+      .catch(() => res.status(404).json({ mag: "Profile not found" }));
+  }
+);
+
 module.exports = router;
