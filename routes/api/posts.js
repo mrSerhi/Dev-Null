@@ -6,6 +6,9 @@ const passport = require("passport");
 // include Post schema model
 const Post = require("../../models/Post");
 
+// include post validation
+const validationPost = require("../../validation/post");
+
 // @route full: /api/posts/test
 // @access: Public
 // @desc:  Test Posts route
@@ -20,11 +23,16 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    // validation
+    const { error, isValid } = validationPost(req.body);
+
+    if (!isValid) return res.status(400).json(error);
+
     const newPost = new Post({
       user: req.user.id,
       text: req.body.text,
       name: req.body.name,
-      avatar: req.body.name
+      avatar: req.body.avatar
     });
 
     newPost
