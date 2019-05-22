@@ -159,7 +159,7 @@ router.post(
         Profile.findOne({ handle: newProfile.handle }).then(profile => {
           if (profile) {
             error.handle = "Handle already exists";
-            res.status(400).json(error);
+            return res.status(400).json(error);
           }
 
           // create new profile
@@ -187,7 +187,7 @@ router.post(
         // const error = {};
         if (!profile) {
           error.noprofile = "Profile not found";
-          res.status(404).json(error);
+          return res.status(404).json(error);
         }
 
         const newExp = {
@@ -231,7 +231,7 @@ router.post(
 
         if (!profile) {
           error.noprofile = "Profile not found";
-          res.status(404).json(error);
+          return res.status(404).json(error);
         }
 
         const newEdu = {
@@ -251,7 +251,7 @@ router.post(
           .then(profile => res.json(profile))
           .catch(ex => res.status(400).json(ex.message));
       })
-      .catch(ex => res.status(404).json({ msg: "User not found" }));
+      .catch(() => res.status(404).json({ msg: "User not found" }));
   }
 );
 
@@ -264,12 +264,12 @@ router.delete(
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
-        if (!profile) res.status(404).json({ msg: "Profile not found" });
+        if (!profile) return res.status(404).json({ msg: "Profile not found" });
 
         // find index and remove
-        const index = profile.experience.findIndex(
-          item => item._id === req.params.exp_id
-        );
+        const index = profile.experience.findIndex(item => {
+          return item._id === req.params.exp_id;
+        });
         profile.experience.splice(index, 1);
 
         // saving
@@ -278,7 +278,7 @@ router.delete(
           .then(profile => res.json(profile))
           .catch(ex => res.status(400).json(ex));
       })
-      .catch(ex => res.status(404).json({ msg: "User not found", error: ex }));
+      .catch(() => res.status(404).json({ msg: "User not found" }));
   }
 );
 
@@ -291,12 +291,12 @@ router.delete(
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
-        if (!profile) res.status(404).json({ msg: "Profile not found" });
+        if (!profile) return res.status(404).json({ msg: "Profile not found" });
 
         // find edu obj and remove from profile
-        const index = profile.education.findIndex(
-          item => item._id === req.params.edu_id
-        );
+        const index = profile.education.findIndex(item => {
+          return item._id === req.params.edu_id;
+        });
         profile.education.splice(index, 1);
 
         // save
