@@ -206,4 +206,35 @@ router.post(
   }
 );
 
+// @route-full: DELETE /api/posts/comment/:post_id/:comment_id
+// @access: Privat
+// @desc:  Remove comment from post
+router.delete(
+  "/comment/:post_id/:comment_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.post_id)
+      .then(post => {
+        // check on if comment exists
+        const comments = post.comments.filter(c => {
+          return c._id.toString() === req.params.comment_id;
+        });
+
+        if (comments.length === 0) {
+          return res.status(400).json({ nocomments: "Comment not exists" });
+        }
+
+        // find comment and remove
+        const index = post.comments.findIndex(
+          c => c._id === req.params.comment_id
+        );
+        post.comments.splice(index, 1);
+
+        // save
+        post.save().then(post => res.json(post));
+      })
+      .catch(() => res.status(404).json({ mag: "Post not found" }));
+  }
+);
+
 module.exports = router;
