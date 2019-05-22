@@ -175,4 +175,35 @@ router.post(
   }
 );
 
+// @route-full: POST /api/posts/comment/:post_id
+// @access: Privat
+// @desc:  Add comment to post
+router.post(
+  "/comment/:post_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.post_id)
+      .then(post => {
+        // for validation use rules which validate post because we need validate currently text field
+        const { error, isValid } = validationPost(req.body);
+
+        if (!isValid) return res.status(400).json(error);
+
+        const newComment = {
+          user: req.user.id,
+          name: req.body.name,
+          avatar: req.body.avatar,
+          text: req.body.text
+        };
+
+        // add new comment at the begging of comments
+        post.comments.unshift(newComment);
+
+        // save
+        post.save().then(post => res.json(post));
+      })
+      .catch(() => res.status(404).json({ mag: "Post not found" }));
+  }
+);
+
 module.exports = router;
