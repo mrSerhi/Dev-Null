@@ -89,7 +89,7 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
-      .then(profile => {
+      .then(() => {
         Post.findById(req.params.post_id)
           .then(post => {
             // check if user is current owner of removing post
@@ -118,11 +118,9 @@ router.post(
       .then(() => {
         Post.findById(req.params.post_id)
           .then(post => {
-            const countLikes = post.likes.reduce((acc, like) => {
-              if (like.user.toString() === req.user.id) return acc + item;
-
-              return acc;
-            }, 0);
+            const countLikes = post.likes.filter(like => {
+              return like.user.toString() === req.user.id;
+            });
 
             // check if current user is liked post
             if (countLikes.length > 0) {
@@ -132,6 +130,42 @@ router.post(
             }
 
             post.likes.push({ user: req.user.id });
+            // save
+            post.save().then(post => res.json(post));
+          })
+          .catch(() => res.status(404).json({ msg: "Post not found" }));
+      })
+      .catch(() => res.status(404).json({ msg: "Profile not found" }));
+  }
+);
+
+// @route-full: POST /api/posts/unlike/:post_id
+// @access: Privat
+// @desc:  Remove Like from post
+router.post(
+  "/unlike/:post_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(() => {
+        Post.findById(req.params.post_id)
+          .then(post => {
+            const countLikes = post.likes.filter(like => {
+              return like.user.toString() === req.user.id;
+            });
+
+            if (countLikes.length === 0) {
+              res
+                .status(400)
+                .json({ notliked: "User is not liked this post yet" });
+            }
+
+            // remove like
+            const index = post.likes.findIndex(like => {
+              return like.user.toString() === req.user.id;
+            });
+            post.likes.splice(index, 1);
+
             // save
             post.save().then(post => res.json(post));
           })
