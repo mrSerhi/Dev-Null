@@ -104,7 +104,7 @@ router.post("/login", (req, res) => {
         jwt.sign(payload, jwtPrivetKey, options, getToken);
       } else {
         error.password = "Password is inccorect";
-        res.status(400).json(error);
+        return res.status(400).json(error);
       }
     });
   });
