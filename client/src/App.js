@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 
@@ -12,11 +13,15 @@ import Footer from "./components/Layout/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <MiddleSection />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          <Route exect path="/" component={MiddleSection} />
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
