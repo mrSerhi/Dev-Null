@@ -1,19 +1,21 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css"; //global bootsrap css styles
 
 // include font-awesome root conf with nums of icons
 import "./fontAwesome";
 
+// components
+import Navbar from "./components/Layout/Navbar";
+import MiddleSection from "./components/Layout/MiddleSection";
+import Footer from "./components/Layout/Footer";
+
 function App() {
   return (
     <div className="App">
-      <h1 className="display-3 text-center">
-        <FontAwesomeIcon icon="check-square" color="yellow" />
-        DevNull project start at now
-        <FontAwesomeIcon icon="coffee" rotation={90} />
-      </h1>
+      <Navbar />
+      <MiddleSection />
+      <Footer />
     </div>
   );
 }
