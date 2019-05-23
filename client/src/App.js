@@ -10,6 +10,8 @@ import "./fontAwesome";
 import Navbar from "./components/Layout/Navbar";
 import MiddleSection from "./components/Layout/MiddleSection";
 import Footer from "./components/Layout/Footer";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
           <Route exect path="/" component={MiddleSection} />
         </Switch>
         <Footer />
