@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Register extends Component {
   state = {
@@ -45,20 +46,20 @@ class Register extends Component {
   handleOnSubmit = e => {
     e.preventDefault();
     // validate
-    const data = {
+    const user = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
-    const { error, isValid } = this.validate(data);
 
-    if (!isValid) {
-      console.log(error);
-      return;
-    }
-    alert("Submit!");
+    // create user
+    axios
+      .post("/api/users/register", user)
+      .then(res => console.log(res.data))
+      .catch(ex => console.dir(ex.response.data));
 
+    // clear fields
     this.setState({ name: "", email: "", password: "", password2: "" });
   };
 
