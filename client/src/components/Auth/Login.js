@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Login extends Component {
   state = {
@@ -76,7 +77,7 @@ class Login extends Component {
                   />
                 </div>
                 <button type="submit" className="btn btn-info btn-block mt-4">
-                  LogIn
+                  LogIn <FontAwesomeIcon icon="sign-in-alt" />
                 </button>
               </form>
             </div>

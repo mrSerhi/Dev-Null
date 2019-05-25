@@ -3,7 +3,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCoffee,
   faCheckSquare,
-  faUserPlus
+  faUserPlus,
+  faSignInAlt
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faCoffee, faCheckSquare, faUserPlus);
+library.add(faCoffee, faCheckSquare, faUserPlus, faSignInAlt);
