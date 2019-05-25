@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import PropTypes from "prop-types";
 
 // tip below email field
 const tip = (
@@ -9,14 +10,7 @@ const tip = (
 );
 
 const FormItem = props => {
-  const {
-    name,
-    value,
-    onChange,
-    placeholder = "",
-    errors = [],
-    type = "text"
-  } = props;
+  const { name, value, onChange, placeholder, errors, type } = props;
 
   return (
     <div className="form-group">
@@ -32,6 +26,21 @@ const FormItem = props => {
       <div className="invalid-feedback">{errors[name]}</div>
     </div>
   );
+};
+
+FormItem.defaultProps = {
+  errors: {},
+  type: "text",
+  placeholder: ""
+};
+
+FormItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  errors: PropTypes.object,
+  type: PropTypes.string
 };
 
 export default FormItem;
