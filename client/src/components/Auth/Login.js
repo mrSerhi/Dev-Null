@@ -1,50 +1,34 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// components
+import Form from "../Form/Form";
+import FormItem from "../Form/FormItem/FormItem";
+import Button from "../Button/Button";
+
 class Login extends Component {
   state = {
     email: "",
     password: ""
   };
 
-  validate = data => {
-    const error = {};
-    let isValid = true;
-
-    if (data.email === "") {
-      error.email = "Email is required";
-      isValid = false;
-    }
-
-    if (data.password === "") {
-      error.password = "Password is required";
-      isValid = false;
-    }
-
-    return { error, isValid };
-  };
-
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleOnSubmit = e => {
     e.preventDefault();
-    // validate
-    const data = {
+    const user = {
       email: this.state.email,
       password: this.state.password
     };
-    const { error, isValid } = this.validate(data);
 
-    if (!isValid) {
-      console.log(error);
-      return;
-    }
     alert("LogIn!");
 
     this.setState({ email: "", password: "" });
   };
 
   render() {
+    const { email, password } = this.state;
+
     return (
       <div className="login">
         <div className="container">
@@ -55,31 +39,27 @@ class Login extends Component {
                 Sign in to your Dev-Null account
               </p>
 
-              <form onSubmit={this.handleOnSubmit}>
-                <div className="form-group">
-                  <input
-                    value={this.state.email}
-                    onChange={this.handleOnChange}
-                    type="email"
-                    className="form-control form-control-lg"
-                    placeholder="Email Address"
-                    name="email"
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    value={this.state.password}
-                    onChange={this.handleOnChange}
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Password"
-                    name="password"
-                  />
-                </div>
-                <button type="submit" className="btn btn-info btn-block mt-4">
+              <Form noValidate={true} onSubmit={this.handleOnSubmit}>
+                <FormItem
+                  value={email}
+                  onChange={this.handleOnChange}
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                />
+
+                <FormItem
+                  value={password}
+                  onChange={this.handleOnChange}
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                />
+
+                <Button type="submit" classes="btn-block btn-info">
                   LogIn <FontAwesomeIcon icon="sign-in-alt" />
-                </button>
-              </form>
+                </Button>
+              </Form>
             </div>
           </div>
         </div>

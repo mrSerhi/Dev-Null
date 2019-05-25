@@ -14,7 +14,7 @@ const FormItem = props => {
     value,
     onChange,
     placeholder = "",
-    errors,
+    errors = [],
     type = "text"
   } = props;
 
