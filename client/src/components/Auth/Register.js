@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+// include actions
+import registerUserAction from "../../actions/authActions";
 
 // components
 import Form from "../Form/Form";
@@ -16,6 +20,16 @@ class Register extends Component {
     errors: {}
   };
 
+  static getDerivedStateFromProps(nextProp, prevState) {
+    if (nextProp.errors !== prevState.errors) {
+      return {
+        errors: nextProp.errors
+      };
+    }
+
+    return null;
+  }
+
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleOnSubmit = e => {
@@ -27,17 +41,9 @@ class Register extends Component {
       password2: this.state.password2
     };
 
-    // create user
-    axios
-      .post("/api/users/register", user)
-      .then(res => console.log(res.data))
-      .catch(ex => this.setState({ errors: ex.response.data }));
+    // call action for registration user
+    this.props.registerUserAction(user, this.props.history);
   };
-
-  validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
 
   render() {
     const { name, email, password, password2, errors } = this.state;
@@ -98,4 +104,15 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUserAction: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+// state => from root reducer
+const mapStateToProps = state => ({ auth: state.auth, errors: state.errors });
+
+export default connect(
+  mapStateToProps,
+  { registerUserAction }
+)(Register);

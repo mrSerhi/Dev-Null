@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 
+// MODULE WITH ROOT REDUCER
+
 // reducers
 import authReducer from "./authReduces";
-
-// module which contain a root reducer
+import errorReducer from "./errorReducer";
 
 export default combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  errors: errorReducer
 });

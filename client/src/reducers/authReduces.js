@@ -1,4 +1,3 @@
-// authtenticated reducer
 const initState = {
   isAuthenticated: false,
   user: {}
