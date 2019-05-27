@@ -5,6 +5,7 @@ import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./assets/utils/setAuthToken";
 import { SET_CURRENT_USER } from "./actions/types";
+import { logoutUserAction } from "./actions/authActions";
 
 // styles
 import "./App.css";
@@ -33,6 +34,18 @@ if (localStorage.jwtToken) {
     type: SET_CURRENT_USER,
     payload: userData
   });
+
+  // control token expires
+  const currentTime = Date.now() / 1000;
+
+  if (userData.exp < currentTime) {
+    // log out user
+    store.dispatch(logoutUserAction());
+    // TODO: clear profile
+
+    // redirect to /login
+    window.history.href = "/login";
+  }
 }
 
 function App() {
