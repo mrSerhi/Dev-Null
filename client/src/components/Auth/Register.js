@@ -43,6 +43,9 @@ class Register extends Component {
 
     // call action for registration user
     this.props.registerUserAction(user, this.props.history);
+
+    // clear inputs fields
+    this.setState({ name: "", email: "", password: "", password2: "" });
   };
 
   render() {

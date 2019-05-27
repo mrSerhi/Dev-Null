@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUserAction } from "../../actions/authActions";
 
 // components
 import Form from "../Form/Form";
@@ -9,8 +12,23 @@ import Button from "../Button/Button";
 class Login extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    errors: {}
   };
+
+  static getDerivedStateFromProps(nextProp, prevState) {
+    if (nextProp.errors !== prevState.errors) {
+      return {
+        errors: nextProp.errors
+      };
+    }
+    // if user is auth -> rediract on the new route
+    if (nextProp.auth.isAuthenticated) {
+      nextProp.history.push("/dashboard");
+    }
+
+    return null;
+  }
 
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -21,13 +39,14 @@ class Login extends Component {
       password: this.state.password
     };
 
-    alert("LogIn!");
+    this.props.loginUserAction(user);
 
+    // clear inputs
     this.setState({ email: "", password: "" });
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, errors } = this.state;
 
     return (
       <div className="login">
@@ -43,6 +62,7 @@ class Login extends Component {
                 <FormItem
                   value={email}
                   onChange={this.handleOnChange}
+                  errors={errors}
                   name="email"
                   type="email"
                   placeholder="Email Address"
@@ -51,13 +71,14 @@ class Login extends Component {
                 <FormItem
                   value={password}
                   onChange={this.handleOnChange}
+                  errors={errors}
                   name="password"
                   type="password"
                   placeholder="Password"
                 />
 
                 <Button type="submit" classes="btn-block btn-info">
-                  LogIn <FontAwesomeIcon icon="sign-in-alt" />
+                  Log in <FontAwesomeIcon icon="sign-in-alt" />
                 </Button>
               </Form>
             </div>
@@ -68,4 +89,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginUserAction: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({ auth: state.auth, errors: state.errors });
+
+export default connect(
+  mapStateToProps,
+  { loginUserAction }
+)(Login);
