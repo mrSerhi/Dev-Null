@@ -54,4 +54,21 @@ function loginUserAction(userData) {
   };
 }
 
-export { registerUserAction, loginUserAction };
+// log out user action
+function logoutUserAction() {
+  return dispatch => {
+    // remove token from localStorage
+    localStorage.removeItem("jwtToken");
+
+    // remove Auth header included token
+    setAuthToken(); // by default arg -> null
+
+    // set current user in log out
+    dispatch({
+      type: SET_CURRENT_USER,
+      payload: {}
+    });
+  };
+}
+
+export { registerUserAction, loginUserAction, logoutUserAction };
