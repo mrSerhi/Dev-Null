@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // include actions
-import registerUserAction from "../../actions/authActions";
+import { registerUserAction } from "../../actions/authActions";
 
 // components
 import Form from "../Form/Form";

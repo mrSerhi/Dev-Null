@@ -1,7 +1,9 @@
 import axios from "axios";
+import setAuthToken from "../assets/utils/setAuthToken";
+import jwt_decode from "jwt-decode";
 
 // types
-import { GET_ERRORS } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 // register action
 function registerUserAction(userData, history) {
@@ -23,4 +25,33 @@ function registerUserAction(userData, history) {
   };
 }
 
-export default registerUserAction;
+// logging user action
+function loginUserAction(userData) {
+  return dispatch => {
+    // get user token
+    axios
+      .post("/api/users/login", userData)
+      .then(res => {
+        // save token to localstorage
+        const { token } = res.data;
+        localStorage.setItem("jwtToken", token);
+        // set token to Auth header for req
+        setAuthToken(token);
+        // decode jwt token with responses user info(name, email, avatar)
+        const tokenDecoded = jwt_decode(token);
+        // set current user
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: tokenDecoded
+        });
+      })
+      .catch(ex => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: ex.response.data
+        });
+      });
+  };
+}
+
+export { registerUserAction, loginUserAction };
