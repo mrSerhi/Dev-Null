@@ -14,11 +14,12 @@ import "./App.css";
 import "./fontAwesome";
 
 // components
-import Navbar from "./components/Layout/Navbar";
+import Navbar from "./components/Layout/Navbar/Navbar";
 import MiddleSection from "./components/Layout/MiddleSection";
 import Footer from "./components/Layout/Footer";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
+import NotFound from "./components/pages/NotFound";
 
 // check if current user token exists in localStorage.
 // the User who passed auth verification has access to change profile and etc...
@@ -55,9 +56,10 @@ function App() {
         <div className="App">
           <Navbar />
           <Switch>
+            <Route exact path="/" component={MiddleSection} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
-            <Route exect path="/" component={MiddleSection} />
+            <Route component={NotFound} />
           </Switch>
           <Footer />
         </div>
