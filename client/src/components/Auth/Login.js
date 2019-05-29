@@ -3,17 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUserAction } from "../../actions/authActions";
+import { CLEAR_ERRORS } from "../../actions/types";
 
 // components
 import Form from "../Form/Form";
 import FormItem from "../Form/FormItem/FormItem";
 import Button from "../Button/Button";
+import store from "../../store";
 
 class Login extends Component {
   state = {
     email: "",
     password: "",
-    errors: {}
+    errors: {},
+    loading: false
   };
 
   static getDerivedStateFromProps(nextProp, prevState) {
@@ -35,25 +38,36 @@ class Login extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.replace("/dashboard");
     }
+
+    // clear inputs
+    this.setState({ email: "", password: "" });
+
+    // clear errros obj in Redux store
+    store.dispatch({
+      type: CLEAR_ERRORS,
+      payload: {}
+    });
   }
 
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleOnSubmit = e => {
     e.preventDefault();
+    this.setState({ loading: true });
     const user = {
       email: this.state.email,
       password: this.state.password
     };
 
     this.props.loginUserAction(user);
-
-    // clear inputs
-    this.setState({ email: "", password: "" });
   };
 
   render() {
-    const { email, password, errors } = this.state;
+    const { email, password, errors, loading } = this.state;
+    const loadingSpinner = <FontAwesomeIcon icon="spinner" pulse />;
+    const icon = (
+      <FontAwesomeIcon icon="sign-in-alt" style={{ verticalAlign: "middle" }} />
+    );
 
     return (
       <div className="login">
@@ -85,7 +99,7 @@ class Login extends Component {
                 />
 
                 <Button type="submit" classes="btn-block btn-info">
-                  Log in <FontAwesomeIcon icon="sign-in-alt" />
+                  Log in {loading ? loadingSpinner : icon}
                 </Button>
               </Form>
             </div>
