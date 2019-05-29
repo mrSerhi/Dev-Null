@@ -30,6 +30,13 @@ class Login extends Component {
     return null;
   }
 
+  componentDidMount() {
+    // redirecting if user is auth to /dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.replace("/dashboard");
+    }
+  }
+
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleOnSubmit = e => {

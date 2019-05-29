@@ -1,34 +1,48 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-const MiddleSection = () => {
-  return (
-    <div className="landing">
-      <div className="dark-overlay landing-inner text-light">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12 text-center">
-              <h1 className="display-3 mb-4">Dev-Null</h1>
-              <p className="lead">
-                {" "}
-                Create a developer profile/portfolio, share posts and get help
-                from other developers
-              </p>
+class MiddleSection extends Component {
+  componentDidMount() {
+    // redirecting if user is auth to /dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.replace("/dashboard");
+    }
+  }
 
-              <hr />
+  render() {
+    return (
+      <div className="landing">
+        <div className="dark-overlay landing-inner text-light">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 text-center">
+                <h1 className="display-3 mb-4">Dev-Null</h1>
+                <p className="lead">
+                  {" "}
+                  Create a developer profile/portfolio, share posts and get help
+                  from other developers
+                </p>
 
-              <Link to="/register" className="btn btn-lg btn-info mr-2">
-                Sign Up
-              </Link>
-              <Link to="/login" className="btn btn-lg btn-light">
-                Login
-              </Link>
+                <hr />
+
+                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                  Sign Up
+                </Link>
+                <Link to="/login" className="btn btn-lg btn-light">
+                  Login
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default MiddleSection;
+export default connect(mapStateToProps)(withRouter(MiddleSection));

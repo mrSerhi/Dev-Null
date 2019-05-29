@@ -4,32 +4,32 @@ import { connect } from "react-redux";
 import { logoutUserAction } from "../../actions/authActions";
 
 const imgStyle = {
-  width: '32px',
-  marginRight: '0.3rem'
-}
+  width: "32px",
+  marginRight: "0.3rem"
+};
 
 class Navbar extends Component {
-
   handlingLogoutClick = e => {
-    e.preventDefault()
+    e.preventDefault();
 
     // log out
     this.props.logoutUserAction();
-  } 
+  };
 
   render() {
-    const {isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated, user } = this.props.auth;
 
     // navbar for authorized users
     const authNav = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <a onClick={this.handlingLogoutClick} href="#!" className="nav-link">
-            <img 
-              src={user.avatar} 
-              className="rounded-circle" 
-              style={imgStyle} alt={user.name} 
-              title="For using avatar, you should be register on Gravatar which use your email" 
+            <img
+              src={user.avatar}
+              className="rounded-circle"
+              style={imgStyle}
+              alt={user.name}
+              title="For using avatar, you should be register on Gravatar which use your email"
             />
             log out
           </a>
@@ -52,10 +52,12 @@ class Navbar extends Component {
       </ul>
     );
 
+    const auth = this.props.auth.isAuthenticated ? "/dashboard" : "/";
+
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to={auth}>
             DevNull
           </Link>
 
@@ -77,7 +79,7 @@ class Navbar extends Component {
               </li>
             </ul>
 
-          {isAuthenticated ? authNav : mainNav}
+            {isAuthenticated ? authNav : mainNav}
           </div>
         </div>
       </nav>
