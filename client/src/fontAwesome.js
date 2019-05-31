@@ -9,6 +9,14 @@ import {
   faIdBadge
 } from "@fortawesome/free-solid-svg-icons";
 
+import {
+  faYoutube,
+  faFacebook,
+  faInstagram,
+  faLinkedin,
+  faTwitter
+} from "@fortawesome/free-brands-svg-icons";
+
 library.add(
   faCoffee,
   faCheckSquare,
@@ -16,5 +24,10 @@ library.add(
   faSignInAlt,
   faSignOutAlt,
   faSpinner,
-  faIdBadge
+  faIdBadge,
+  faYoutube,
+  faFacebook,
+  faInstagram,
+  faLinkedin,
+  faTwitter
 );
