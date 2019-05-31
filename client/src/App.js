@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./assets/utils/setAuthToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logoutUserAction } from "./actions/authActions";
+import { clearProfileAction } from "./actions/profileActions";
 
 // styles
 import "./App.css";
@@ -19,7 +20,9 @@ import MiddleSection from "./components/Layout/MiddleSection";
 import Footer from "./components/Layout/Footer";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
+// pages
 import NotFound from "./components/pages/NotFound";
+import Dashboard from "./components/pages/Dashboard/Dashboard";
 
 // check if current user token exists in localStorage.
 // the User who passed auth verification has access to change profile and etc...
@@ -42,8 +45,8 @@ if (localStorage.jwtToken) {
   if (userData.exp < currentTime) {
     // log out user
     store.dispatch(logoutUserAction());
-    // TODO: clear profile
-
+    // clear profile
+    store.dispatch(clearProfileAction());
     // redirect to /login
     window.history.href = "/login";
   }
@@ -59,6 +62,7 @@ function App() {
             <Route exact path="/" component={MiddleSection} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
+            <Route path="/dashboard" component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
           <Footer />
