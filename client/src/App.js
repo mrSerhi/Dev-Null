@@ -23,6 +23,7 @@ import Login from "./components/Auth/Login";
 // pages
 import NotFound from "./components/pages/NotFound";
 import Dashboard from "./components/pages/Dashboard/Dashboard";
+import CreateProfile from "./components/pages/CreateProfile/CreateProfile";
 // protected route
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -65,6 +66,7 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <ProtectedRoute path="/dashboard" component={Dashboard} />
+            <ProtectedRoute path="/create_profile" component={CreateProfile} />
             <Route component={NotFound} />
           </Switch>
           <Footer />
