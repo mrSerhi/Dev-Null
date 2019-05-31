@@ -3,21 +3,59 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfileAction } from "../../../actions/profileActions";
 
+// components
+import Spinner from "../../UI/Spinner/Spinner";
+import CreateProfileTip from "./CreateProfileTip/CreateProfileTip";
+
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfileAction();
   }
 
+  renderProfile() {
+    const { user } = this.props.auth;
+    const { loading, profile } = this.props.profile;
+
+    if (profile === null || loading) {
+      return <Spinner />;
+    } else {
+      // checking if profile equal {}, when display block to create profile
+      if (Object.keys(profile).length > 0) {
+        // TODO: display profile etc...
+      } else {
+        return <CreateProfileTip user={user} />;
+      }
+    }
+  }
+
   render() {
-    return <h1 className="display text-center">Dashboard component</h1>;
+    return (
+      <section className="dashboard">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <h1 className="display-5">Dashboard</h1>
+              {this.renderProfile()}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
 }
 
 Dashboard.propTypes = {
-  getCurrentProfileAction: PropTypes.func.isRequired
+  getCurrentProfileAction: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  profile: state.profile,
+  auth: state.auth
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { getCurrentProfileAction }
 )(Dashboard);

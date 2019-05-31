@@ -5,7 +5,8 @@ import {
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
-  faSpinner
+  faSpinner,
+  faIdBadge
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -14,5 +15,6 @@ library.add(
   faUserPlus,
   faSignInAlt,
   faSignOutAlt,
-  faSpinner
+  faSpinner,
+  faIdBadge
 );
