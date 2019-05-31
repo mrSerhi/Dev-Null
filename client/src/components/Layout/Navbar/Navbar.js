@@ -16,9 +16,6 @@ class Navbar extends Component {
     this.props.clearProfileAction();
     // log out
     this.props.logoutUserAction();
-
-    // redirect to '/'
-    this.props.history.push("/");
   };
 
   render() {

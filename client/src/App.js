@@ -23,6 +23,8 @@ import Login from "./components/Auth/Login";
 // pages
 import NotFound from "./components/pages/NotFound";
 import Dashboard from "./components/pages/Dashboard/Dashboard";
+// protected route
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 // check if current user token exists in localStorage.
 // the User who passed auth verification has access to change profile and etc...
@@ -48,7 +50,7 @@ if (localStorage.jwtToken) {
     // clear profile
     store.dispatch(clearProfileAction());
     // redirect to /login
-    window.history.href = "/login";
+    window.location.href = "/login";
   }
 }
 
@@ -62,7 +64,7 @@ function App() {
             <Route exact path="/" component={MiddleSection} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
+            <ProtectedRoute path="/dashboard" component={Dashboard} />
             <Route component={NotFound} />
           </Switch>
           <Footer />
