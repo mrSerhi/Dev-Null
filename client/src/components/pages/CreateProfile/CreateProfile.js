@@ -8,8 +8,8 @@ import Form from "../../Form/Form";
 import FormItem from "../../Form/FormItem/FormItem";
 import FormItemSelect from "../../Form/FormItem/FormItemSelect";
 import FormItemTextarea from "../../Form/FormItem/FormItemTextarea";
-import FormItemSocial from "../../Form/FormItem/FormItemSocial";
 import Button from "../../Button/Button";
+import SocialInputGroup from "./SocialInputGroup/SocialInputGroup";
 
 class CreateProfile extends Component {
   state = {
@@ -45,7 +45,7 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { showSocials } = this.state;
+    const { showSocials, errors } = this.state;
     const statusOptions = [
       { value: "0", label: "Select Professional Status" },
       { value: "Developer", label: "Developer" },
@@ -57,8 +57,6 @@ class CreateProfile extends Component {
       { value: "Intern", label: "Intern or VITshnik" },
       { value: "Other", label: "Other" }
     ];
-    let socialDefault = "social-links mt-3 ";
-    socialDefault = !showSocials ? socialDefault + "d-none" : socialDefault;
 
     return (
       <section className="create-profile">
@@ -150,57 +148,16 @@ class CreateProfile extends Component {
                   </small>
                 </Button>
 
-                <div className={socialDefault}>
-                  <small className="text-info">
-                    If you have one or more network profiles, you can add them
-                    to your profile
-                  </small>
-
-                  <FormItemSocial
-                    name="facebook"
-                    value={this.state.facebook}
-                    onChange={this.handleChange}
-                    placeholder="Facebook Profile URL"
-                    errors={this.state.errors}
-                    icon={["fab", "facebook"]}
-                  />
-
-                  <FormItemSocial
-                    name="instagram"
-                    value={this.state.instagram}
-                    onChange={this.handleChange}
-                    placeholder="Instagram Profile URL"
-                    errors={this.state.errors}
-                    icon={["fab", "instagram"]}
-                  />
-
-                  <FormItemSocial
-                    name="youtube"
-                    value={this.state.youtube}
-                    onChange={this.handleChange}
-                    placeholder="Youtube Profile URL"
-                    errors={this.state.errors}
-                    icon={["fab", "youtube"]}
-                  />
-
-                  <FormItemSocial
-                    name="twitter"
-                    value={this.state.twitter}
-                    onChange={this.handleChange}
-                    placeholder="Twitter Profile URL"
-                    errors={this.state.errors}
-                    icon={["fab", "twitter"]}
-                  />
-
-                  <FormItemSocial
-                    name="linkedin"
-                    value={this.state.linkedin}
-                    onChange={this.handleChange}
-                    placeholder="Linkedin Profile URL"
-                    errors={this.state.errors}
-                    icon={["fab", "linkedin"]}
-                  />
-                </div>
+                <SocialInputGroup
+                  youtube={this.state.youtube}
+                  twitter={this.state.twitter}
+                  facebook={this.state.facebook}
+                  linkedin={this.state.linkedin}
+                  instagram={this.state.instagram}
+                  onChange={this.handleChange}
+                  toggling={showSocials}
+                  errors={errors}
+                />
 
                 <Button type="submit" classes="btn-info btn-block">
                   Done!
