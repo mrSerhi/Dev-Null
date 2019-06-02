@@ -59,7 +59,7 @@ class CreateProfile extends Component {
     ];
 
     return (
-      <section className="create-profile">
+      <section className="create-profile mb-5">
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">

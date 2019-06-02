@@ -17,7 +17,7 @@ import "./fontAwesome";
 // components
 import Navbar from "./components/Layout/Navbar/Navbar";
 import MiddleSection from "./components/Layout/MiddleSection";
-import Footer from "./components/Layout/Footer";
+// import Footer from "./components/Layout/Footer";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 // pages
@@ -69,7 +69,6 @@ function App() {
             <ProtectedRoute path="/create_profile" component={CreateProfile} />
             <Route component={NotFound} />
           </Switch>
-          <Footer />
         </div>
       </Router>
     </Provider>
