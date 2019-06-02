@@ -6,7 +6,8 @@ import {
   faSignInAlt,
   faSignOutAlt,
   faSpinner,
-  faIdBadge
+  faIdBadge,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -29,5 +30,6 @@ library.add(
   faFacebook,
   faInstagram,
   faLinkedin,
-  faTwitter
+  faTwitter,
+  faPlus
 );

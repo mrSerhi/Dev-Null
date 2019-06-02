@@ -7,9 +7,9 @@ const FormItemSocial = props => {
   const { name, value, onChange, placeholder, errors, icon } = props;
 
   return (
-    <div className="input-group">
+    <div className="input-group mb-3">
       <div className="input-group-prepend">
-        <span class="input-group-text">
+        <span className="input-group-text">
           <FontAwesomeIcon icon={icon} />
         </span>
       </div>
@@ -38,7 +38,7 @@ FormItemSocial.propTypes = {
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   errors: PropTypes.object,
-  icon: PropTypes.string.isRequired
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
 };
 
 export default FormItemSocial;
