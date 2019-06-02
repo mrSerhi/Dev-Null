@@ -10,6 +10,7 @@ import FormItemSelect from "../../Form/FormItem/FormItemSelect";
 import FormItemTextarea from "../../Form/FormItem/FormItemTextarea";
 import Button from "../../Button/Button";
 import SocialInputGroup from "./SocialInputGroup/SocialInputGroup";
+import CreateProfileHeader from "./CreateProfileHeader/CreateProfileHeader";
 
 class CreateProfile extends Component {
   state = {
@@ -63,15 +64,7 @@ class CreateProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">
-              <h1 className="display-5 text-center">Create Profile</h1>
-              <p className="text-center lead">
-                In this page you can create your own profile. Please, fill in
-                the fields to make your profile look perfect!
-              </p>
-              <small>
-                fields with <span className="text-danger">*</span> - are
-                required
-              </small>
+              <CreateProfileHeader />
 
               <Form onSubmit={this.handleSubmit}>
                 <FormItem
