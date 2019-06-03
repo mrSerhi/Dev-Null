@@ -40,35 +40,35 @@ module.exports = function validationProfile(data) {
   // social youtube
   if (!isEmpty(data.youtube)) {
     if (!validator.isURL(data.youtube)) {
-      error.website = "Youtube URL is inccorect";
+      error.youtube = "Youtube URL is inccorect";
     }
   }
 
   // social twitter
   if (!isEmpty(data.twitter)) {
     if (!validator.isURL(data.twitter)) {
-      error.website = "Twitter URL is inccorect";
+      error.twitter = "Twitter URL is inccorect";
     }
   }
 
   // social facebook
   if (!isEmpty(data.facebook)) {
     if (!validator.isURL(data.facebook)) {
-      error.website = "Facebook URL is inccorect";
+      error.facebook = "Facebook URL is inccorect";
     }
   }
 
   // social linkedin
   if (!isEmpty(data.linkedin)) {
     if (!validator.isURL(data.linkedin)) {
-      error.website = "Linkedin URL is inccorect";
+      error.linkedin = "Linkedin URL is inccorect";
     }
   }
 
   // social instagram
   if (!isEmpty(data.instagram)) {
     if (!validator.isURL(data.instagram)) {
-      error.website = "Instagram URL is inccorect";
+      error.instagram = "Instagram URL is inccorect";
     }
   }
 

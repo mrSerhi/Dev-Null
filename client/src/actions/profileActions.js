@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from "./types";
+import {
+  GET_PROFILE,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE,
+  GET_ERRORS
+} from "./types";
 
 // get current profile
 function getCurrentProfileAction() {
@@ -28,6 +33,21 @@ function getCurrentProfileAction() {
   };
 }
 
+// create of user profile action
+function createProfileAction(usrData, history) {
+  return dispatch => {
+    axios
+      .post("/api/profile", usrData)
+      .then(() => history.push("/dashboard"))
+      .catch(ex => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: ex.response.data
+        });
+      });
+  };
+}
+
 const clearProfileAction = () => ({ type: CLEAR_CURRENT_PROFILE });
 
-export { getCurrentProfileAction, clearProfileAction };
+export { getCurrentProfileAction, clearProfileAction, createProfileAction };

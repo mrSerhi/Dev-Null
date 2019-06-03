@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// actions
+import { createProfileAction } from "../../../actions/profileActions";
+
 // components
 import Form from "../../Form/Form";
 import FormItem from "../../Form/FormItem/FormItem";
@@ -31,10 +34,36 @@ class CreateProfile extends Component {
     errors: {}
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.errors !== prevState.errors) {
+      return {
+        errors: nextProps.errors
+      };
+    }
+
+    return null;
+  }
+
   handleSubmit = e => {
     e.preventDefault();
 
-    alert("Submit");
+    const { history, createProfileAction } = this.props;
+    const newProfile = {
+      handle: this.state.handle, //*
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      status: this.state.status, //*
+      skills: this.state.skills, //*
+      bio: this.state.bio,
+      githubusername: this.state.githubusername,
+      youtube: this.state.youtube,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      instagram: this.state.instagram
+    };
+    createProfileAction(newProfile, history);
   };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -166,7 +195,8 @@ class CreateProfile extends Component {
 
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  createProfileAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -174,4 +204,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createProfileAction }
+)(CreateProfile);
