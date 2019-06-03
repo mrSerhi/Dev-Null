@@ -4,7 +4,8 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+  GET_ERRORS,
+  SET_CURRENT_USER
 } from "./types";
 
 // get current profile
@@ -48,6 +49,37 @@ function createProfileAction(usrData, history) {
   };
 }
 
+// delete profile && current user action
+function deleteProfileAction() {
+  return dispatch => {
+    const confirm = window.confirm(
+      "Your profile and account will be removed, are you sure?"
+    );
+    if (confirm) {
+      axios
+        .delete("/api/profile")
+        .then(() => {
+          // for removing we use SET_CURRENT_USER to set auth.user: {} like logoutUser action
+          dispatch({
+            type: SET_CURRENT_USER,
+            payload: {}
+          });
+        })
+        .catch(ex => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: ex.response.data
+          });
+        });
+    }
+  };
+}
+
 const clearProfileAction = () => ({ type: CLEAR_CURRENT_PROFILE });
 
-export { getCurrentProfileAction, clearProfileAction, createProfileAction };
+export {
+  getCurrentProfileAction,
+  clearProfileAction,
+  createProfileAction,
+  deleteProfileAction
+};

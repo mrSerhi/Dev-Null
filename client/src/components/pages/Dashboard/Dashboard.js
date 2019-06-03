@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfileAction } from "../../../actions/profileActions";
+import {
+  getCurrentProfileAction,
+  deleteProfileAction
+} from "../../../actions/profileActions";
 
 // components
 import Spinner from "../../UI/Spinner/Spinner";
@@ -13,6 +16,10 @@ class Dashboard extends Component {
     this.props.getCurrentProfileAction();
   }
 
+  handleDeleteClick = () => {
+    this.props.deleteProfileAction();
+  };
+
   renderProfile() {
     const { user } = this.props.auth;
     const { loading, profile } = this.props.profile;
@@ -23,7 +30,7 @@ class Dashboard extends Component {
       // checking if profile equal {}, when display block to create profile
       if (Object.keys(profile).length > 0) {
         // display profile etc...
-        return <DashboardContent />;
+        return <DashboardContent onDelete={this.handleDeleteClick} />;
       } else {
         return <CreateProfileTip user={user} />;
       }
@@ -48,6 +55,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getCurrentProfileAction: PropTypes.func.isRequired,
+  deleteProfileAction: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -59,5 +67,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfileAction }
+  { getCurrentProfileAction, deleteProfileAction }
 )(Dashboard);

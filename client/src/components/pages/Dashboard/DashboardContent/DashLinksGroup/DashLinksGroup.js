@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const DashLinksGroup = () => {
   return (
-    <div className="btn-group mb-4" role="group">
+    <div className="btn-group mb-4 d-block" role="group">
       <Link to="/profile/edit_profile" className="btn btn-dark">
         <FontAwesomeIcon icon="edit" /> Edit Profile
       </Link>
