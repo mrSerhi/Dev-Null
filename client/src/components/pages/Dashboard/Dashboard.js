@@ -6,6 +6,7 @@ import { getCurrentProfileAction } from "../../../actions/profileActions";
 // components
 import Spinner from "../../UI/Spinner/Spinner";
 import CreateProfileTip from "./CreateProfileTip/CreateProfileTip";
+import DashboardContent from "./DashboardContent/DashboardContent";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -21,7 +22,8 @@ class Dashboard extends Component {
     } else {
       // checking if profile equal {}, when display block to create profile
       if (Object.keys(profile).length > 0) {
-        // TODO: display profile etc...
+        // display profile etc...
+        return <DashboardContent />;
       } else {
         return <CreateProfileTip user={user} />;
       }
