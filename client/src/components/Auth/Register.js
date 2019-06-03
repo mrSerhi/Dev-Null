@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
+import store from "../../store";
+import { CLEAR_ERRORS } from "../../actions/types";
 import PropTypes from "prop-types";
 
 // include actions
@@ -37,6 +39,14 @@ class Register extends Component {
     }
   }
 
+  componentWillUnmount() {
+    // clear errors obj in Redux store
+    store.dispatch({
+      type: CLEAR_ERRORS,
+      payload: {}
+    });
+  }
+
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleOnSubmit = e => {
@@ -50,9 +60,6 @@ class Register extends Component {
 
     // call action for registration user
     this.props.registerUserAction(user, this.props.history);
-
-    // clear inputs fields
-    this.setState({ name: "", email: "", password: "", password2: "" });
   };
 
   render() {

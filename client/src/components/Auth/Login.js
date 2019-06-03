@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import store from "../../store";
 import { loginUserAction } from "../../actions/authActions";
 import { CLEAR_ERRORS } from "../../actions/types";
 
@@ -9,7 +10,6 @@ import { CLEAR_ERRORS } from "../../actions/types";
 import Form from "../Form/Form";
 import FormItem from "../Form/FormItem/FormItem";
 import Button from "../Button/Button";
-import store from "../../store";
 
 class Login extends Component {
   state = {
@@ -30,7 +30,7 @@ class Login extends Component {
       nextProp.history.push("/dashboard");
     }
 
-    return null;
+    return {};
   }
 
   componentDidMount() {
@@ -38,11 +38,10 @@ class Login extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.replace("/dashboard");
     }
+  }
 
-    // clear inputs
-    this.setState({ email: "", password: "" });
-
-    // clear errros obj in Redux store
+  componentWillUnmount() {
+    // clear errors obj in Redux store
     store.dispatch({
       type: CLEAR_ERRORS,
       payload: {}
