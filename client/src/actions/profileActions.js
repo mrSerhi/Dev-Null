@@ -92,10 +92,26 @@ function addExperienceAction(userData, history) {
   };
 }
 
+// add education to profile action
+function addEducationAction(userData, history) {
+  return dispatch => {
+    axios
+      .post("/api/profile/education", userData)
+      .then(() => history.push("/dashboard"))
+      .catch(ex => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: ex.response.data
+        });
+      });
+  };
+}
+
 export {
   getCurrentProfileAction,
   clearProfileAction,
   createProfileAction,
   deleteProfileAction,
-  addExperienceAction
+  addExperienceAction,
+  addEducationAction
 };

@@ -26,6 +26,7 @@ import Dashboard from "./components/pages/Dashboard/Dashboard";
 import CreateProfile from "./components/pages/CreateProfile/CreateProfile";
 import EditProfile from "./components/pages/EditProfile/EditProfile";
 import AddExperience from "./components/AdditionalToProfile/AddExperience/AddExperience";
+import AddEducation from "./components/AdditionalToProfile/AddEducation/AddEducation";
 // protected route
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -79,6 +80,10 @@ function App() {
             <ProtectedRoute
               path="/profile/add_experience"
               component={AddExperience}
+            />
+            <ProtectedRoute
+              path="/profile/add_education"
+              component={AddEducation}
             />
             <Route component={NotFound} />
           </Switch>
