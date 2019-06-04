@@ -10,6 +10,7 @@ import FormItem from "../../Form/FormItem/FormItem";
 import FormItemTextarea from "../../Form/FormItem/FormItemTextarea";
 import ExperienceHeader from "./ExperienceHeader/ExperienceHeader";
 import Button from "../../Button/Button";
+import FormItemCheckbox from "../../Form/FormItem/FormItemCheckbox";
 
 class AddExperience extends Component {
   state = {
@@ -70,7 +71,13 @@ class AddExperience extends Component {
 
                 {/* from */}
                 {/* to */}
-                {/* curent */}
+                <FormItemCheckbox
+                  checkboxID="exp-current"
+                  value={current}
+                  checked={current}
+                  onChecked={this.handleCheckClick}
+                  label="currently working"
+                />
 
                 <FormItemTextarea
                   name="description"
