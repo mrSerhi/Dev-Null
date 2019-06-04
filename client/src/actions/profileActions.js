@@ -92,6 +92,29 @@ function addExperienceAction(userData, history) {
   };
 }
 
+// remove experience from profile
+function removeExperienceAction(expID) {
+  return dispatch => {
+    if (expID) {
+      axios
+        .delete("/api/profile/experience/" + expID)
+        .then(res => {
+          // call type of action -> should return back updated profile without removed exp
+          dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+          });
+        })
+        .catch(ex => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: ex.response.data
+          });
+        });
+    }
+  };
+}
+
 // add education to profile action
 function addEducationAction(userData, history) {
   return dispatch => {
@@ -113,5 +136,6 @@ export {
   createProfileAction,
   deleteProfileAction,
   addExperienceAction,
-  addEducationAction
+  addEducationAction,
+  removeExperienceAction
 };
