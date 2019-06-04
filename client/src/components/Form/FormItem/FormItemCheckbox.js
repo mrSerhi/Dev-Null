@@ -5,7 +5,7 @@ const FormItemCheckbox = props => {
   const { name, checkboxID, value, checked, onChecked, label } = props;
 
   return (
-    <div className="form-check mb-3">
+    <div className="form-check my-3">
       <input
         name={name || checkboxID}
         className="form-check-input"

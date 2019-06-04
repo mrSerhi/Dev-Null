@@ -3,6 +3,10 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DatePicker from "react-datepicker";
+
+// styles for datepicker
+import "react-datepicker/dist/react-datepicker.css";
 
 // components
 import Form from "../../Form/Form";
@@ -38,39 +42,51 @@ class AddExperience extends Component {
     } = this.state;
 
     return (
-      <section className="add-experience">
+      <section className="add-experience mb-5">
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">
               <ExperienceHeader />
 
-              <Form onSubmit={this.onSubmitCLick}>
+              <Form onSubmit={this.handeOnSubmit}>
                 <FormItem
                   name="title"
                   value={title}
-                  onChange={this.handleChange}
+                  onChange={this.handleOnChange}
                   placeholder="*Job Title"
                   errors={errors}
                 />
-
                 <FormItem
                   name="company"
                   value={company}
-                  onChange={this.handleChange}
+                  onChange={this.handleOnChange}
                   placeholder="*Company Title"
                   errors={errors}
                 />
-
                 <FormItem
                   name="location"
                   value={location}
-                  onChange={this.handleChange}
+                  onChange={this.handleOnChange}
                   placeholder="Location"
                   errors={errors}
                 />
-
-                {/* from */}
-                {/* to */}
+                <span className="mr-1">From:</span>
+                <DatePicker
+                  name="from"
+                  selected={from}
+                  onChange={this.handleOnChange}
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText="dd/MM/yyyy"
+                />
+                <span className="ml-3 mr-1">To:</span>
+                <DatePicker
+                  name="to"
+                  selected={to}
+                  onChange={this.handleOnChange}
+                  disabled={disabled}
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText={disabled ? "You working..." : "dd/MM/yyyy"}
+                />
                 <FormItemCheckbox
                   checkboxID="exp-current"
                   value={current}
@@ -78,15 +94,13 @@ class AddExperience extends Component {
                   onChecked={this.handleCheckClick}
                   label="currently working"
                 />
-
                 <FormItemTextarea
                   name="description"
                   value={description}
-                  onChange={this.handleChange}
+                  onChange={this.handleOnChange}
                   placeholder="Some of your responsabilities from your last job..."
                   errors
                 />
-
                 <Button type="submit" classes="btn-info">
                   <FontAwesomeIcon icon="plus" /> Add to profile
                 </Button>
