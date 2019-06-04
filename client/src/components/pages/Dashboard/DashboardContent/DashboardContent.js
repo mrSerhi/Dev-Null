@@ -6,15 +6,18 @@ import PropTypes from "prop-types";
 import DashHeader from "./DashHeader/DashHeader";
 import DashLinksGroup from "./DashLinksGroup/DashLinksGroup";
 import Button from "../../../Button/Button";
+import ExperienceTable from "./ExperienceTable/ExperienceTable";
 
-const DashboardContent = ({ onDelete }) => {
+const DashboardContent = ({ onDelete, expItems }) => {
   return (
     <Fragment>
       <DashHeader />
       <DashLinksGroup />
 
+      <ExperienceTable items={expItems} />
+
       {/* TODO: add  Education table */}
-      {/* TODO: add  Exp table */}
+
       <Button classes="btn-sm btn-danger" onClick={onDelete}>
         Delete my account <FontAwesomeIcon icon="trash" />
       </Button>

@@ -29,8 +29,14 @@ class Dashboard extends Component {
     } else {
       // checking if profile equal {}, when display block to create profile
       if (Object.keys(profile).length > 0) {
+        const { experience, education } = profile;
         // display profile etc...
-        return <DashboardContent onDelete={this.handleDeleteClick} />;
+        return (
+          <DashboardContent
+            onDelete={this.handleDeleteClick}
+            expItems={experience}
+          />
+        );
       } else {
         return <CreateProfileTip user={user} />;
       }
