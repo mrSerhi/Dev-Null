@@ -77,9 +77,25 @@ function deleteProfileAction() {
 
 const clearProfileAction = () => ({ type: CLEAR_CURRENT_PROFILE });
 
+// add experience to profile action
+function addExperienceAction(userData, history) {
+  return dispatch => {
+    axios
+      .post("/api/profile/experience", userData)
+      .then(() => history.push("/dashboard"))
+      .catch(ex => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: ex.response.data
+        });
+      });
+  };
+}
+
 export {
   getCurrentProfileAction,
   clearProfileAction,
   createProfileAction,
-  deleteProfileAction
+  deleteProfileAction,
+  addExperienceAction
 };

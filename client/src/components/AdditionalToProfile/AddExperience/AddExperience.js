@@ -4,6 +4,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from "react-datepicker";
+import store from "../../../store";
+import { CLEAR_ERRORS } from "../../../actions/types";
+
+// actions
+import { addExperienceAction } from "../../../actions/profileActions";
 
 // styles for datepicker
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,10 +34,38 @@ class AddExperience extends Component {
     errors: {}
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.errors !== prevState.errors) {
+      return { errors: nextProps.errors };
+    }
+
+    return null;
+  }
+
+  componentWillUnmount() {
+    // clear Errors from store
+    store.dispatch({
+      type: CLEAR_ERRORS,
+      payload: {}
+    });
+  }
+
   handeOnSubmit = e => {
     e.preventDefault();
 
-    alert("submit");
+    const { addExperienceAction, history } = this.props;
+    const newExp = {
+      title: this.state.title,
+      company: this.state.company,
+      location: this.state.location,
+      from: this.state.from,
+      to: this.state.to,
+      current: this.state.current,
+      description: this.state.description
+    };
+
+    // call profile action
+    addExperienceAction(newExp, history);
   };
 
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -78,7 +111,9 @@ class AddExperience extends Component {
                   placeholder="Location"
                   errors={this.state.errors}
                 />
-                <span className="mr-1">From:</span>
+                <span className="mr-1">
+                  <sup className="text-danger">*</sup> From:
+                </span>
                 <DatePicker
                   selected={this.state.from}
                   onChange={this.handleOnChangeFrom}
@@ -128,7 +163,11 @@ const mapStateToProps = state => ({
 
 AddExperience.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  addExperienceAction: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(withRouter(AddExperience));
+export default connect(
+  mapStateToProps,
+  { addExperienceAction }
+)(withRouter(AddExperience));
