@@ -111,23 +111,27 @@ class AddExperience extends Component {
                   placeholder="Location"
                   errors={this.state.errors}
                 />
-                <span className="mr-1">
-                  <sup className="text-danger">*</sup> From:
-                </span>
+                <h6>
+                  From <sup className="text-danger">*</sup>
+                </h6>
                 <DatePicker
+                  className="form-control"
                   selected={this.state.from}
                   onChange={this.handleOnChangeFrom}
                   dateFormat="dd/MM/yyyy"
                   placeholderText="dd/MM/yyyy"
                 />
-                <span className="ml-3 mr-1">To:</span>
+                <h6 className="mt-2">To</h6>
                 <DatePicker
+                  className="form-control"
                   selected={this.state.to}
                   onChange={this.handleOnChangeTo}
                   disabled={this.state.disabled}
                   dateFormat="dd/MM/yyyy"
                   placeholderText={
-                    this.state.disabled ? "You working..." : "dd/MM/yyyy"
+                    this.state.disabled
+                      ? "Cool, You're working..."
+                      : "dd/MM/yyyy"
                   }
                 />
                 <FormItemCheckbox
