@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -41,19 +41,23 @@ class ExperienceTable extends Component {
 
   render() {
     return (
-      <div className="table-responsive-md">
-        <table className="table table-striped">
-          <thead className="thead-light">
-            <tr>
-              <th>Title</th>
-              <th>Company</th>
-              <th>Years</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>{this.renderingExperienceItems()}</tbody>
-        </table>
-      </div>
+      <Fragment>
+        <h3 className="display-5">Experience</h3>
+
+        <div className="table-responsive-md">
+          <table className="table table-striped">
+            <thead className="thead-light">
+              <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Years</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>{this.renderingExperienceItems()}</tbody>
+          </table>
+        </div>
+      </Fragment>
     );
   }
 }
