@@ -130,6 +130,26 @@ function addEducationAction(userData, history) {
   };
 }
 
+function removeEducationAction(eduID) {
+  return dispatch => {
+    axios
+      .delete("/api/profile/education/" + eduID)
+      .then(res => {
+        // get updated profile without removed education
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data
+        });
+      })
+      .catch(ex => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: ex.response.data
+        });
+      });
+  };
+}
+
 export {
   getCurrentProfileAction,
   clearProfileAction,
@@ -137,5 +157,6 @@ export {
   deleteProfileAction,
   addExperienceAction,
   addEducationAction,
-  removeExperienceAction
+  removeExperienceAction,
+  removeEducationAction
 };

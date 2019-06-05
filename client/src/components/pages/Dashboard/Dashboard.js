@@ -35,6 +35,7 @@ class Dashboard extends Component {
           <DashboardContent
             onDelete={this.handleDeleteClick}
             expItems={experience}
+            eduItems={education}
           />
         );
       } else {
