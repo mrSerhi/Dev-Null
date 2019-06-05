@@ -1,7 +1,8 @@
 import {
   GET_PROFILE,
   PROFILE_LOADING,
-  CLEAR_CURRENT_PROFILE
+  CLEAR_CURRENT_PROFILE,
+  GET_ALL_PROFILES
 } from "../actions/types";
 
 const initState = {
@@ -27,6 +28,12 @@ function profileReducer(state = initState, action) {
       return {
         ...state,
         profile: null
+      };
+    case GET_ALL_PROFILES:
+      return {
+        ...state,
+        profiles: action.payload,
+        loading: false
       };
     default:
       return state;

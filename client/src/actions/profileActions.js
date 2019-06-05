@@ -5,7 +5,8 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_ALL_PROFILES
 } from "./types";
 
 // get current profile
@@ -130,6 +131,7 @@ function addEducationAction(userData, history) {
   };
 }
 
+// remove education from profile
 function removeEducationAction(eduID) {
   return dispatch => {
     axios
@@ -150,6 +152,28 @@ function removeEducationAction(eduID) {
   };
 }
 
+// get all profiles
+function getProfilesAction() {
+  return dispatch => {
+    axios
+      .get("/api/profile/all")
+      .then(res => {
+        // if OK -> returns array of profiles
+        dispatch({
+          type: GET_ALL_PROFILES,
+          payload: res.data
+        });
+      })
+      .catch(() => {
+        // if returns error -> profiles should be null like init state
+        dispatch({
+          type: GET_ALL_PROFILES,
+          payload: null
+        });
+      });
+  };
+}
+
 export {
   getCurrentProfileAction,
   clearProfileAction,
@@ -158,5 +182,6 @@ export {
   addExperienceAction,
   addEducationAction,
   removeExperienceAction,
-  removeEducationAction
+  removeEducationAction,
+  getProfilesAction
 };

@@ -27,6 +27,7 @@ import CreateProfile from "./components/pages/CreateProfile/CreateProfile";
 import EditProfile from "./components/pages/EditProfile/EditProfile";
 import AddExperience from "./components/AdditionalToProfile/AddExperience/AddExperience";
 import AddEducation from "./components/AdditionalToProfile/AddEducation/AddEducation";
+import Profiles from "./components/Profiles/Profiles";
 // protected route
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -68,6 +69,7 @@ function App() {
             <Route exact path="/" component={MiddleSection} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
+            <Route path="/profiles" component={Profiles} />
             <ProtectedRoute path="/dashboard" component={Dashboard} />
             <ProtectedRoute
               path="/profile/create_profile"
