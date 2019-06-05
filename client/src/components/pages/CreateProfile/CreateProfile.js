@@ -14,6 +14,7 @@ import FormItemTextarea from "../../Form/FormItem/FormItemTextarea";
 import Button from "../../Button/Button";
 import SocialInputGroup from "./SocialInputGroup/SocialInputGroup";
 import CreateProfileHeader from "./CreateProfileHeader/CreateProfileHeader";
+import GoBackLink from "../../UI/GoBackLink/GoBackLink";
 
 class CreateProfile extends Component {
   state = {
@@ -93,6 +94,8 @@ class CreateProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">
+              <GoBackLink path="/dashboard" />
+
               <CreateProfileHeader />
 
               <Form onSubmit={this.handleSubmit}>

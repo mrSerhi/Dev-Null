@@ -20,6 +20,7 @@ import FormItemTextarea from "../../Form/FormItem/FormItemTextarea";
 import Button from "../../Button/Button";
 import FormItemCheckbox from "../../Form/FormItem/FormItemCheckbox";
 import EducationHeader from "./EducationHeader/EducationHeader";
+import GoBackLink from "../../UI/GoBackLink/GoBackLink";
 
 class AddEducation extends Component {
   state = {
@@ -87,6 +88,8 @@ class AddEducation extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">
+              <GoBackLink path="/dashboard" />
+
               <EducationHeader />
 
               <Form onSubmit={this.handeOnSubmit}>

@@ -18,6 +18,7 @@ import FormItemTextarea from "../../Form/FormItem/FormItemTextarea";
 import Button from "../../Button/Button";
 import SocialInputGroup from "../CreateProfile/SocialInputGroup/SocialInputGroup";
 import EditProfileHeader from "./EditProfileHeader/EditProfileHeader";
+import GoBackLink from "../../UI/GoBackLink/GoBackLink";
 
 class EditProfile extends PureComponent {
   state = {
@@ -153,6 +154,8 @@ class EditProfile extends PureComponent {
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">
+              <GoBackLink path="/dashboard" />
+
               <EditProfileHeader />
 
               <Form onSubmit={this.handleSubmit}>
