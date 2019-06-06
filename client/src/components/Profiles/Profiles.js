@@ -8,6 +8,7 @@ import { getProfilesAction } from "../../actions/profileActions";
 // components
 import Spinner from "../UI/Spinner/Spinner";
 import ProfilesHeader from "./ProfilesHeader/ProfilesHeader";
+import ProfilesCard from "./ProfilesCard/ProfilesCard";
 
 class Profiles extends Component {
   componentDidMount() {
@@ -22,7 +23,7 @@ class Profiles extends Component {
     } else {
       // check if profiles not empty
       if (profiles.length > 0) {
-        return <h1>Profiles Exists!</h1>;
+        return profiles.map(p => <ProfilesCard key={p._id} profile={p} />);
       } else {
         return <h1 className="text-danger">Profiles not founds...</h1>;
       }

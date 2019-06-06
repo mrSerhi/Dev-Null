@@ -12,7 +12,8 @@ import {
   faGraduationCap,
   faEdit,
   faTrash,
-  faArrowCircleLeft
+  faArrowCircleLeft,
+  faCheck
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -41,5 +42,6 @@ library.add(
   faEdit,
   faGraduationCap,
   faTrash,
-  faArrowCircleLeft
+  faArrowCircleLeft,
+  faCheck
 );

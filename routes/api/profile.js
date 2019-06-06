@@ -94,6 +94,7 @@ router.get("/user/:user_id", (req, res) => {
 router.get("/all", (req, res) => {
   // call model method for getting all profiles / array
   Profile.find()
+    .populate("user", ["name", "avatar"])
     .then(profiles => {
       if (!profiles) {
         res.status(404).json({ msg: `Profiles not found` });
