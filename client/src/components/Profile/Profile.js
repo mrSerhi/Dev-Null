@@ -7,6 +7,7 @@ import { getProfileByHandleAction } from "../../actions/profileActions";
 // components
 import Spinner from "../UI/Spinner/Spinner";
 import ProfileHeader from "./ProfileHeader";
+import ProfileBio from "./ProfileBio";
 
 class Profile extends Component {
   componentDidMount() {
@@ -29,7 +30,7 @@ class Profile extends Component {
         return (
           <Fragment>
             <ProfileHeader profile={profile} />
-            <h1>TODO:bio</h1>
+            <ProfileBio profile={profile} />
             <h1>TODO:exp and edu</h1>
             <h1>TODO:github</h1>
           </Fragment>
