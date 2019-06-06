@@ -174,6 +174,33 @@ function getProfilesAction() {
   };
 }
 
+// get profile by handle
+function getProfileByHandleAction(handle) {
+  return dispatch => {
+    // set loading = true
+    dispatch({
+      type: PROFILE_LOADING
+    });
+
+    // get profile
+    axios
+      .get(`/api/profile/handle/${handle}`)
+      .then(res => {
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data
+        });
+      })
+      .catch(() => {
+        // if no find a profile -> set to null
+        dispatch({
+          type: GET_PROFILE,
+          payload: null
+        });
+      });
+  };
+}
+
 export {
   getCurrentProfileAction,
   clearProfileAction,
@@ -183,5 +210,6 @@ export {
   addEducationAction,
   removeExperienceAction,
   removeEducationAction,
-  getProfilesAction
+  getProfilesAction,
+  getProfileByHandleAction
 };

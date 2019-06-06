@@ -28,6 +28,7 @@ import EditProfile from "./components/pages/EditProfile/EditProfile";
 import AddExperience from "./components/AdditionalToProfile/AddExperience/AddExperience";
 import AddEducation from "./components/AdditionalToProfile/AddEducation/AddEducation";
 import Profiles from "./components/Profiles/Profiles";
+import Profile from "./components/Profile/Profile";
 // protected route
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -70,6 +71,7 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/profiles" component={Profiles} />
+            <Route path="/profile/:handle" component={Profile} />
             <ProtectedRoute path="/dashboard" component={Dashboard} />
             <ProtectedRoute
               path="/profile/create_profile"
