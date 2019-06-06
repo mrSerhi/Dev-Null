@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { getProfileByHandleAction } from "../../actions/profileActions";
 // components
 import Spinner from "../UI/Spinner/Spinner";
+import ProfileHeader from "./ProfileHeader";
 
 class Profile extends Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class Profile extends Component {
       if (Object.keys(profile).length > 0) {
         return (
           <Fragment>
-            <h1>TODO:header</h1>
+            <ProfileHeader profile={profile} />
             <h1>TODO:bio</h1>
             <h1>TODO:exp and edu</h1>
             <h1>TODO:github</h1>
