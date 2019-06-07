@@ -71,7 +71,8 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/profiles" component={Profiles} />
-            <Route path="/profile/:handle" component={Profile} />
+            <Route path="/profile/handle/:handle" component={Profile} />
+
             <ProtectedRoute path="/dashboard" component={Dashboard} />
             <ProtectedRoute
               path="/profile/create_profile"

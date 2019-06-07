@@ -39,7 +39,10 @@ const ProfilesCard = ({ profile }) => {
 
           <ul className="list-group  mb-3">{renderingSkills()}</ul>
 
-          <Link to={`/profile/${handle}`} className="btn btn-info btn-block">
+          <Link
+            to={`/profile/handle/${handle}`}
+            className="btn btn-info btn-block"
+          >
             Profile
           </Link>
         </section>
