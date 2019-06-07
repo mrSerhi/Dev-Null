@@ -17,7 +17,7 @@ const ProfilesCard = ({ profile }) => {
       });
     }
   };
-  console.log(user);
+
   return (
     <div className="col-sm-12 col-md-6 mb-3">
       <div className="card bg-light">

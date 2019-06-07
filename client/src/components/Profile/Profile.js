@@ -10,6 +10,7 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileBio from "./ProfileBio";
 import ProfileAdditional from "./ProfileAdditional/ProfileAdditional";
 import GoBackLink from "../UI/GoBackLink/GoBackLink";
+import ProfileGithub from "./ProfileGithub";
 
 class Profile extends Component {
   componentDidMount() {
@@ -34,7 +35,9 @@ class Profile extends Component {
             <ProfileHeader profile={profile} />
             <ProfileBio profile={profile} />
             <ProfileAdditional profile={profile} />
-            <h1>TODO:github</h1>
+            {profile.githubusername !== "" ? (
+              <ProfileGithub userName={profile.githubusername} />
+            ) : null}
           </Fragment>
         );
       }
