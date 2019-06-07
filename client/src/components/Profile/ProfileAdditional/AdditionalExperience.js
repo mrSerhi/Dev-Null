@@ -7,9 +7,9 @@ const AdditionalExperience = ({ experience }) => {
 
   const renderingExperience = () => {
     return experience.map(exp => {
-      const { title, company, location, from, to, description } = exp;
+      const { title, company, location, from, to, description, _id } = exp;
       return (
-        <div className="card card-body p-3">
+        <div key={_id} className="card card-body p-3">
           <h4 className="display-5 font-weight-bold text-capitalize">
             {title}
           </h4>

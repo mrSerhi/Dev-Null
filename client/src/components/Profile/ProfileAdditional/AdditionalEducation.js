@@ -7,9 +7,9 @@ const AdditionalEducation = ({ education }) => {
 
   const renderingEducation = () => {
     return education.map(edu => {
-      const { school, degree, fieldofstudy, from, to, description } = edu;
+      const { school, degree, fieldofstudy, from, to, description, _id } = edu;
       return (
-        <div className="card card-body p-3">
+        <div key={_id} className="card card-body p-3">
           <h4 className="display-5 font-weight-bold">{school}</h4>
           <p className="education-date">
             {formatDate(from)} &#9472; {to !== "" ? formatDate(to) : "now"}
