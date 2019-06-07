@@ -9,6 +9,7 @@ import Spinner from "../UI/Spinner/Spinner";
 import ProfileHeader from "./ProfileHeader";
 import ProfileBio from "./ProfileBio";
 import ProfileAdditional from "./ProfileAdditional/ProfileAdditional";
+import GoBackLink from "../UI/GoBackLink/GoBackLink";
 
 class Profile extends Component {
   componentDidMount() {
@@ -45,7 +46,10 @@ class Profile extends Component {
       <section className="profile">
         <div className="container">
           <div className="row">
-            <div className="col-md-12 m-auto">{this.renderingProfile()}</div>
+            <div className="col-md-12 m-auto">
+              <GoBackLink path="/profiles" />
+              {this.renderingProfile()}
+            </div>
           </div>
         </div>
       </section>
