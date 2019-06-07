@@ -5,18 +5,22 @@ import PropTypes from "prop-types";
 const ProfileHeader = ({ profile }) => {
   const { user, status, company, location, social } = profile;
   const renderingSocial = () => {
-    return Object.keys(social).map(key => {
-      return (
-        <a
-          key={key}
-          href={social[key]}
-          className="btn btn-link text-light"
-          target="blank"
-        >
-          <FontAwesomeIcon icon={["fab", key]} size="2x" />
-        </a>
-      );
-    });
+    if (Object.keys(social).length > 0) {
+      return Object.keys(social).map(key => {
+        return (
+          <a
+            key={key}
+            href={social[key]}
+            className="btn btn-link text-light"
+            target="blank"
+          >
+            <FontAwesomeIcon icon={["fab", key]} size="2x" />
+          </a>
+        );
+      });
+    } else {
+      return null;
+    }
   };
 
   return (
