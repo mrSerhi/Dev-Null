@@ -3,6 +3,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 class ProfileGithub extends Component {
+  _isMounted = false; // control memory leak then component is unmounted
+
   state = {
     clientID: "Iv1.a02dddd88bfd01a3",
     clientSecret: "dba67c4ee4b274aab91a40199b5e22d6bcb23af0",
@@ -13,6 +15,7 @@ class ProfileGithub extends Component {
   };
 
   componentDidMount() {
+    this._isMounted = true;
     const { userName } = this.props;
     const {
       clientID,
@@ -26,8 +29,14 @@ class ProfileGithub extends Component {
     const auth = `&client_id=${clientID}&client_secret=${clientSecret}`;
     axios
       .get(URL + q + auth)
-      .then(res => this.setState({ repos: res.data }))
+      .then(res => {
+        if (this._isMounted) this.setState({ repos: res.data });
+      })
       .catch(ex => console.error(ex));
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false; // clear async process
   }
 
   renderingGithubRepos = () => {
