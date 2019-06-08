@@ -1,11 +1,15 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import isEmpty from "../../assets/utils/isEmpty";
 
 const ProfileHeader = ({ profile }) => {
-  const { user, status, company, location, social } = profile;
+  const { user, status, company, location } = profile;
+
   const renderingSocial = () => {
-    if (profile.website !== "") {
+    let social = profile.social ? profile.social : [];
+
+    if (profile.website || !isEmpty(profile.website)) {
       social.website = profile.website;
     }
 

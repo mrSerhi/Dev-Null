@@ -20,7 +20,10 @@ const CreateProfileTip = ({ user }) => {
         You don't have a profile yet, please follow the link and create a
         profile <img src={drawing} alt="drawing" style={drawingStyles} />
       </p>
-      <Link to="/create_profile" className="btn btn-outline btn-primary">
+      <Link
+        to="/profile/create_profile"
+        className="btn btn-outline btn-primary"
+      >
         Create profile <FontAwesomeIcon icon="id-badge" />
       </Link>
     </div>

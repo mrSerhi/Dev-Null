@@ -72,7 +72,6 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/profiles" component={Profiles} />
             <Route path="/profile/handle/:handle" component={Profile} />
-            <Route component={NotFound} />
             <ProtectedRoute path="/dashboard" component={Dashboard} />
             <ProtectedRoute
               path="/profile/create_profile"
@@ -90,6 +89,7 @@ function App() {
               path="/profile/add_education"
               component={AddEducation}
             />
+            <Route exact component={NotFound} />
           </Switch>
         </div>
       </Router>

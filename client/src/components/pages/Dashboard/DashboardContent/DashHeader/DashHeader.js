@@ -11,7 +11,7 @@ class DashHeader extends Component {
       <p className="lead text-muted">
         Welcome{" "}
         <span className="text-info text-capitalize">
-          <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+          <Link to={`/profile/handle/${profile.handle}`}>{user.name}</Link>
         </span>
       </p>
     );

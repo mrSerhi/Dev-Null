@@ -34,19 +34,16 @@ class Profile extends Component {
     if (profile === null || loading) {
       return <Spinner />;
     } else {
-      // check if profile is not empty
-      if (Object.keys(profile).length > 0) {
-        return (
-          <Fragment>
-            <ProfileHeader profile={profile} />
-            <ProfileBio profile={profile} />
-            <ProfileAdditional profile={profile} />
-            {profile.githubusername !== "" ? (
-              <ProfileGithub userName={profile.githubusername} />
-            ) : null}
-          </Fragment>
-        );
-      }
+      return (
+        <Fragment>
+          <ProfileHeader profile={profile} />
+          <ProfileBio profile={profile} />
+          <ProfileAdditional profile={profile} />
+          {profile.githubusername !== "" ? (
+            <ProfileGithub userName={profile.githubusername} />
+          ) : null}
+        </Fragment>
+      );
     }
   };
 
