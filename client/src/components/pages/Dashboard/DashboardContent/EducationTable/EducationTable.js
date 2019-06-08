@@ -54,8 +54,7 @@ class EducationTable extends Component {
                 <th />
               </tr>
             </thead>
-            {/* <tbody>{this.renderingEducationItems()}</tbody> */}
-            {this.renderingEducationItems()}
+            <tbody>{this.renderingEducationItems()}</tbody>
           </table>
         </div>
       </Fragment>

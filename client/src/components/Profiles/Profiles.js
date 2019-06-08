@@ -31,7 +31,11 @@ class Profiles extends Component {
       if (profiles.length > 0) {
         return profiles.map(p => <ProfilesCard key={p._id} profile={p} />);
       } else {
-        return <h1 className="text-danger">Profiles not founds...</h1>;
+        return (
+          <h1 className="text-danger">
+            Use your chance and create a firsty profile!
+          </h1>
+        );
       }
     }
   };
@@ -43,7 +47,7 @@ class Profiles extends Component {
           <div className="row">
             <div className="col-md-12">
               <ProfilesHeader />
-              {this.renderingProfiles()}
+              <div className="row">{this.renderingProfiles()}</div>
             </div>
           </div>
         </div>
