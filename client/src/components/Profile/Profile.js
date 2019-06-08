@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import isEmpty from "../../assets/utils/isEmpty";
 
 // actions
 import { getProfileByHandleAction } from "../../actions/profileActions";
@@ -39,7 +40,7 @@ class Profile extends Component {
           <ProfileHeader profile={profile} />
           <ProfileBio profile={profile} />
           <ProfileAdditional profile={profile} />
-          {profile.githubusername !== "" ? (
+          {!isEmpty(profile.githubusername) ? (
             <ProfileGithub userName={profile.githubusername} />
           ) : null}
         </Fragment>
