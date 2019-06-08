@@ -15,6 +15,12 @@ class Profiles extends Component {
     this.props.getProfilesAction();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.url !== this.props.location.pathname) {
+      this.props.history.push("/not_found");
+    }
+  }
+
   renderingProfiles = () => {
     const { profiles, loading } = this.props.profile;
 

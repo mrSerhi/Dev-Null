@@ -22,6 +22,12 @@ class Profile extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.url !== this.props.location.pathname) {
+      this.props.history.push("/not_found");
+    }
+  }
+
   renderingProfile = () => {
     const { loading, profile } = this.props.profile;
 
