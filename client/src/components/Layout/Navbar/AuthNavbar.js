@@ -14,6 +14,12 @@ const AuthNav = ({ onLogout, user }) => {
   return (
     <ul className="navbar-nav ml-auto align-items-center">
       <li className="nav-item">
+        <NavLink className="nav-link" to="/posts">
+          Posts
+        </NavLink>
+      </li>
+
+      <li className="nav-item">
         <NavLink className="nav-link" to="/dashboard">
           Dashboard
         </NavLink>

@@ -1,4 +1,4 @@
-import { GET_POSTS, POST_LOADING } from "../actions/types";
+import { GET_POSTS, POST_LOADING, ADD_POST } from "../actions/types";
 
 const initState = {
   posts: [],
@@ -18,6 +18,11 @@ function postReducer(state = initState, action) {
         ...state,
         posts: action.payload,
         loading: false
+      };
+    case ADD_POST:
+      return {
+        ...state,
+        posts: [action.payload, ...state.posts]
       };
     default:
       return state;

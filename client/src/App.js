@@ -29,6 +29,8 @@ import AddExperience from "./components/AdditionalToProfile/AddExperience/AddExp
 import AddEducation from "./components/AdditionalToProfile/AddEducation/AddEducation";
 import Profiles from "./components/Profiles/Profiles";
 import Profile from "./components/Profile/Profile";
+import Posts from "./components/Posts/Posts";
+
 // protected route
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -89,6 +91,8 @@ function App() {
               path="/profile/add_education"
               component={AddEducation}
             />
+            <ProtectedRoute path="/posts" component={Posts} />
+
             <Route exact component={NotFound} />
           </Switch>
         </div>

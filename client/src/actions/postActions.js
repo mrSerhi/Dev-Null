@@ -48,7 +48,7 @@ function addPostAction(post) {
         .catch(ex =>
           dispatch({
             type: GET_ERRORS,
-            payload: ex.responce.data
+            payload: ex.response.data
           })
         );
     }

@@ -14,7 +14,9 @@ import {
   faTrash,
   faArrowCircleLeft,
   faCheck,
-  faGlobe
+  faGlobe,
+  faTimes,
+  faPaperPlane
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -45,5 +47,7 @@ library.add(
   faTrash,
   faArrowCircleLeft,
   faCheck,
-  faGlobe
+  faGlobe,
+  faTimes,
+  faPaperPlane
 );
