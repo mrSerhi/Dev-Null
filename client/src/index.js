@@ -7,4 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css"; //global bootsrap css styles
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
+if (module.hot) {
+  module.hot.accept();
+}
+
 serviceWorker.unregister();
