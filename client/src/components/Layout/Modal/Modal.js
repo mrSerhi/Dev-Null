@@ -2,6 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import classes from "./Modal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 ReactModal.setAppElement(document.getElementById("root"));
 
@@ -30,6 +31,11 @@ const Modal = ({ isOpen, onClose, ...props }) => {
 
 Modal.defaultProps = {
   shouldCloseOnEsc: true
+};
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default Modal;

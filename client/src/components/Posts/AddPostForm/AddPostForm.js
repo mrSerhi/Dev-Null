@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 // actions
 import { addPostAction } from "../../../actions/postActions";
@@ -70,6 +71,13 @@ class AddPostForm extends Component {
     );
   }
 }
+
+AddPostForm.propTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  addPostAction: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth,
