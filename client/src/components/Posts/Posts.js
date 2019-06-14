@@ -6,14 +6,36 @@ import { getPostsAction } from "../../actions/postActions";
 import Modal from "../Layout/Modal/Modal";
 import AddPostForm from "./AddPostForm/AddPostForm";
 import Button from "../Button/Button";
+import Spinner from "../UI/Spinner/Spinner";
+import Post from "./Post";
 
 class Posts extends Component {
   state = {
     isOpen: false
   };
 
+  componentDidMount() {
+    this.props.getPostsAction();
+  }
+
   handleModalOpenning = () => this.setState({ isOpen: true });
   handleModalClosing = () => this.setState({ isOpen: false });
+
+  renderingPosts = () => {
+    const { posts, loading } = this.props.post;
+
+    if (posts.length === null || loading) {
+      return <Spinner />;
+    } else if (posts.length === 0 && !loading) {
+      return (
+        <h3 className="text-danger text-center">
+          Posts are not created yet, be first and create a post!
+        </h3>
+      );
+    } else {
+      return posts.map(post => <Post key={post._id} post={post} />);
+    }
+  };
 
   render() {
     return (
@@ -34,7 +56,8 @@ class Posts extends Component {
                   Create post
                 </Button>
               </header>
-              Posts container
+
+              <div className="post mt-5">{this.renderingPosts()}</div>
             </div>
           </div>
         </div>

@@ -16,7 +16,9 @@ import {
   faCheck,
   faGlobe,
   faTimes,
-  faPaperPlane
+  faPaperPlane,
+  faHeart,
+  faHeartBroken
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -49,5 +51,7 @@ library.add(
   faCheck,
   faGlobe,
   faTimes,
-  faPaperPlane
+  faPaperPlane,
+  faHeart,
+  faHeartBroken
 );

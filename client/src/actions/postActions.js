@@ -27,7 +27,7 @@ function getPostsAction() {
       .catch(() =>
         dispatch({
           type: GET_POSTS,
-          payload: []
+          payload: null
         })
       );
   };
