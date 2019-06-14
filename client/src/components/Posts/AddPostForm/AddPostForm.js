@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { CLEAR_ERRORS } from "../../../actions/types";
+import store from "../../../store";
 
 // actions
 import { addPostAction } from "../../../actions/postActions";
@@ -33,7 +35,7 @@ class AddPostForm extends Component {
     e.preventDefault();
 
     const { user } = this.props.auth;
-    const { text } = this.state;
+    const { text, errors } = this.state;
 
     const newPost = {
       user: user.id,
@@ -45,10 +47,13 @@ class AddPostForm extends Component {
     this.props.addPostAction(newPost);
 
     // close modal
-    this.props.onClose();
+    if (Object.keys(errors).length === 0 && text !== "") this.props.onClose();
 
     // clear fields
     this.setState({ text: "" });
+
+    // clear errors object
+    store.dispatch({ type: CLEAR_ERRORS, payload: {} });
   };
 
   render() {
@@ -74,7 +79,7 @@ class AddPostForm extends Component {
 
 AddPostForm.propTypes = {
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   addPostAction: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired
 };

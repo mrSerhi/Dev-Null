@@ -55,4 +55,16 @@ function addPostAction(post) {
   };
 }
 
-export { getPostsAction, addPostAction };
+// delete post
+function deletePostAction(postId) {
+  return dispatch => {
+    if (postId) {
+      axios
+        .delete(`/api/posts/${postId}`)
+        .then(() => dispatch({ type: DELETE_POST, payload: postId }))
+        .catch(ex => dispatch({ type: GET_ERRORS, payload: ex.response.data }));
+    }
+  };
+}
+
+export { getPostsAction, addPostAction, deletePostAction };
