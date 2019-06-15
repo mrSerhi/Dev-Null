@@ -21,6 +21,8 @@ import {
   faHeartBroken
 } from "@fortawesome/free-solid-svg-icons";
 
+import { faHeart as faPureHeart } from "@fortawesome/free-regular-svg-icons";
+
 import {
   faYoutube,
   faFacebook,
@@ -53,5 +55,6 @@ library.add(
   faTimes,
   faPaperPlane,
   faHeart,
-  faHeartBroken
+  faHeartBroken,
+  faPureHeart
 );

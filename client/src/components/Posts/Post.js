@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Button from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classnames from "classnames";
 
 // actions
 import { deletePostAction } from "../../actions/postActions";
+
+// components
+import Button from "../Button/Button";
+import Likes from "./Likes/Likes";
 
 class Post extends Component {
   state = {
@@ -38,28 +42,26 @@ class Post extends Component {
   };
 
   renderingPost = () => {
-    const {
-      comments,
-      likes,
-      text,
-      _id: postID,
-      avatar,
-      name
-    } = this.props.post;
+    const { comments, text, _id: postID, avatar, name } = this.props.post;
     const { removing } = this.state;
-
     let post = "card card-body mb-3 bg-light p-4 animated ";
-    const postAddAnim = removing ? post + "bounceOutRight" : post + "bounceIn";
 
     return (
-      <div className={postAddAnim}>
+      <div
+        className={classnames(post, {
+          bounceOutRight: removing,
+          bounceIn: !removing
+        })}
+      >
         <div className="row">
-          <div className="d-none d-md-block col-md-2">
-            <Link to="/profiles">
+          <div className="col-sm-12 col-md-2">
+            <Link to="/profiles" className="d-none d-md-block">
               <img src={avatar} alt="avatar" className="rounded-circle" />
             </Link>
 
-            <h5 className="text-center mt-2 text-uppercase">{name}</h5>
+            <h5 className="text-center mt-2 text-uppercase text-warning">
+              {name}
+            </h5>
           </div>
 
           <div className="col-md-10">
@@ -67,13 +69,7 @@ class Post extends Component {
 
             <p className="lead mb-5">{text}</p>
 
-            <Button classes="btn-light text-danger">
-              <FontAwesomeIcon icon="heart" size="2x" />{" "}
-              <span className="badge badge-info">{likes.length}</span>
-            </Button>
-            <Button classes="btn-light ml-1">
-              <FontAwesomeIcon icon="heart-broken" size="1x" />
-            </Button>
+            <Likes post={this.props.post} />
 
             <Link to={`/post/${postID}`} className="btn btn-info ml-5">
               Add Comment{" "}
@@ -86,7 +82,7 @@ class Post extends Component {
   };
 
   render() {
-    return this.renderingPost;
+    return this.renderingPost();
   }
 }
 

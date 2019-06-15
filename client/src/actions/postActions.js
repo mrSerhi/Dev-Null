@@ -5,11 +5,12 @@ import {
   GET_ERRORS,
   ADD_POST,
   DELETE_POST,
-  GET_POST
+  GET_POST,
+  UPDATE_LIKE
 } from "./types";
 
 // get all posts
-function getPostsAction() {
+export function getPostsAction() {
   return dispatch => {
     // set to loading post
     dispatch({
@@ -34,7 +35,7 @@ function getPostsAction() {
 }
 
 // add post
-function addPostAction(post) {
+export function addPostAction(post) {
   return dispatch => {
     if (post) {
       axios
@@ -56,7 +57,7 @@ function addPostAction(post) {
 }
 
 // delete post
-function deletePostAction(postId) {
+export function deletePostAction(postId) {
   return dispatch => {
     if (postId) {
       axios
@@ -67,4 +68,32 @@ function deletePostAction(postId) {
   };
 }
 
-export { getPostsAction, addPostAction, deletePostAction };
+// add like post
+export function addLikeToPostAction(postID) {
+  return dispatch => {
+    axios
+      .post(`/api/posts/like/${postID}`)
+      .then(() => {
+        // get currently updated post
+        axios
+          .get(`/api/posts/${postID}`)
+          .then(res => dispatch({ type: UPDATE_LIKE, payload: res.data }));
+      })
+      .catch(ex => dispatch({ type: GET_ERRORS, payload: ex.response.data }));
+  };
+}
+
+// remove like from post
+export function removeLikeFromPostAction(postID) {
+  return dispatch => {
+    axios
+      .post(`/api/posts/unlike/${postID}`)
+      .then(() => {
+        // get currently updated post
+        axios
+          .get(`/api/posts/${postID}`)
+          .then(res => dispatch({ type: UPDATE_LIKE, payload: res.data }));
+      })
+      .catch(ex => dispatch({ type: GET_ERRORS, payload: ex.response.data }));
+  };
+}

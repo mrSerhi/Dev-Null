@@ -1,8 +1,10 @@
 import {
   GET_POSTS,
+  GET_POST,
   POST_LOADING,
   ADD_POST,
-  DELETE_POST
+  DELETE_POST,
+  UPDATE_LIKE
 } from "../actions/types";
 
 const initState = {
@@ -33,6 +35,13 @@ function postReducer(state = initState, action) {
       return {
         ...state,
         posts: state.posts.filter(p => p._id !== action.payload)
+      };
+    case UPDATE_LIKE:
+      const index = state.posts.findIndex(p => p._id === action.payload._id);
+      state.posts[index] = action.payload;
+      return {
+        ...state,
+        posts: state.posts
       };
     default:
       return state;
