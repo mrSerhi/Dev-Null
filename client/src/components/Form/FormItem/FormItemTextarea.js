@@ -29,7 +29,7 @@ FormItemTextarea.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  errors: PropTypes.object
+  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
 };
 
 export default FormItemTextarea;

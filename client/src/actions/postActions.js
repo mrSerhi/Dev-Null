@@ -111,3 +111,15 @@ export function removeLikeFromPostAction(postID) {
       .catch(ex => dispatch({ type: GET_ERRORS, payload: ex.response.data }));
   };
 }
+
+// add comment to post
+export function addCommentAction(postID, data) {
+  return dispatch => {
+    if (postID && data) {
+      axios
+        .post(`/api/posts/comment/${postID}`, data)
+        .then(res => dispatch({ type: GET_POST, payload: res.data }))
+        .catch(ex => dispatch({ type: GET_ERRORS, payload: ex.response.data }));
+    }
+  };
+}

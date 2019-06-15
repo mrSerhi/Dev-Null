@@ -9,6 +9,7 @@ import { getCurrentPostAction } from "../../../actions/postActions";
 import Spinner from "../../UI/Spinner/Spinner";
 import SinglePostView from "./SinglePostView";
 import GoBackLink from "../../UI/GoBackLink/GoBackLink";
+import PostCommentForm from "./PostComments/PostCommentForm";
 
 class SinglePost extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class SinglePost extends Component {
         <Fragment>
           <GoBackLink path="/posts" />
           <SinglePostView post={post} />
+          <PostCommentForm post={post} />
         </Fragment>
       );
     }
