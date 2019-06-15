@@ -30,6 +30,7 @@ import AddEducation from "./components/AdditionalToProfile/AddEducation/AddEduca
 import Profiles from "./components/Profiles/Profiles";
 import Profile from "./components/Profile/Profile";
 import Posts from "./components/Posts/Posts";
+import SinglePost from "./components/pages/SinglePost/SinglePost";
 
 // protected route
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -92,6 +93,7 @@ function App() {
               component={AddEducation}
             />
             <ProtectedRoute path="/posts" component={Posts} />
+            <ProtectedRoute path="/post/:postID" component={SinglePost} />
 
             <Route exact component={NotFound} />
           </Switch>

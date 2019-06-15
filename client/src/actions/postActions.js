@@ -34,6 +34,20 @@ export function getPostsAction() {
   };
 }
 
+// get single post
+export function getCurrentPostAction(postID) {
+  return dispatch => {
+    if (postID) {
+      dispatch({ type: POST_LOADING });
+
+      axios
+        .get(`/api/posts/${postID}`)
+        .then(res => dispatch({ type: GET_POST, payload: res.data }))
+        .catch(() => dispatch({ type: GET_ERRORS, payload: null }));
+    }
+  };
+}
+
 // add post
 export function addPostAction(post) {
   return dispatch => {
