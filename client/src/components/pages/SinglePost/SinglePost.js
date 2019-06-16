@@ -7,10 +7,10 @@ import { getCurrentPostAction } from "../../../actions/postActions";
 
 // components
 import Spinner from "../../UI/Spinner/Spinner";
-import SinglePostView from "./SinglePostView";
+import SinglePostView from "./SinglePostItem";
 import GoBackLink from "../../UI/GoBackLink/GoBackLink";
-import PostCommentForm from "./PostComments/PostCommentForm";
-import PostComments from "./PostComments/PostComments";
+import CommentsFeedForm from "./CommentsFeed/CommentsFeedForm";
+import CommentsFeed from "./CommentsFeed/CommentsFeed";
 
 class SinglePost extends Component {
   componentDidMount() {
@@ -31,8 +31,8 @@ class SinglePost extends Component {
         <Fragment>
           <GoBackLink path="/posts" />
           <SinglePostView post={post} />
-          <PostCommentForm post={post} />
-          <PostComments />
+          <CommentsFeedForm post={post} />
+          <CommentsFeed />
         </Fragment>
       );
     }

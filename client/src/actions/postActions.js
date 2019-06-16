@@ -123,3 +123,15 @@ export function addCommentAction(postID, data) {
     }
   };
 }
+
+// remove comment from post
+export function removeCommentAction(postID, commentID) {
+  return dispatch => {
+    if (postID && commentID) {
+      axios
+        .delete(`/api/posts/comment/${postID}/${commentID}`)
+        .then(res => dispatch({ type: GET_POST, payload: res.data }))
+        .catch(ex => dispatch({ type: GET_ERRORS, payload: ex.response.data }));
+    }
+  };
+}

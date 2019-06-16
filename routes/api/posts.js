@@ -226,7 +226,7 @@ router.delete(
 
         // find comment and remove
         const index = post.comments.findIndex(
-          c => c._id === req.params.comment_id
+          c => c._id.toString() === req.params.comment_id
         );
         post.comments.splice(index, 1);
 

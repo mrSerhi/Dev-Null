@@ -4,16 +4,33 @@ import Button from "../../../Button/Button";
 import { connect } from "react-redux";
 import { format } from "date-fns";
 import PropTypes from "prop-types";
+import classnames from "classnames";
+
+// action
+import { removeCommentAction } from "../../../../actions/postActions";
 
 class Comment extends Component {
+  state = {
+    removing: false
+  };
+
+  handleDeleteCommentOnClick = (postID, commentID) => {
+    this.setState({ removing: true });
+    // delay for animation
+    setTimeout(() => {
+      this.props.removeCommentAction(postID, commentID);
+    }, 700);
+  };
+
   renderingDeletePostBtn = () => {
     const { user } = this.props.auth;
-    const { user: userID } = this.props.comment;
+    const { user: userID, _id: commentID } = this.props.comment;
+    const { _id: postID } = this.props.post;
 
     if (user.id === userID) {
       return (
         <Button
-          // onClick={() => this.handleDeleteOnClick(PostID)}
+          onClick={() => this.handleDeleteCommentOnClick(postID, commentID)}
           classes="btn-link text-danger text-decoration-none float-right ml-1"
         >
           <FontAwesomeIcon icon="times" />
@@ -26,8 +43,13 @@ class Comment extends Component {
 
   render() {
     const { comment } = this.props;
+    const { removing } = this.state;
     return (
-      <div className="card card-body bg-light mb-3">
+      <div
+        className={classnames("card card-body bg-light mb-3 animated", {
+          fadeOut: removing
+        })}
+      >
         <div className="media">
           <img
             src={comment.avatar}
@@ -53,9 +75,14 @@ class Comment extends Component {
 
 Comment.propTypes = {
   comment: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
+  removeCommentAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({ auth: state.auth });
 
-export default connect(mapStateToProps)(Comment);
+export default connect(
+  mapStateToProps,
+  { removeCommentAction }
+)(Comment);

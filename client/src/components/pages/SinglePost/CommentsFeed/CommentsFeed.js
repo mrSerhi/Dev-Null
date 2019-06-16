@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 // components
-import Comment from "./Comment";
+import Comment from "./CommentsFeedItem";
 import Spinner from "../../../UI/Spinner/Spinner";
 
 class PostComments extends Component {
@@ -11,7 +11,7 @@ class PostComments extends Component {
     const { post } = this.props.post;
     if (Object.keys(post).length > 0) {
       return post.comments.map(comment => {
-        return <Comment key={comment._id} comment={comment} />;
+        return <Comment key={comment._id} comment={comment} post={post} />;
       });
     } else {
       return <Spinner />;
@@ -31,7 +31,7 @@ class PostComments extends Component {
   }
 }
 
-Comment.propTypes = {
+PostComments.propTypes = {
   post: PropTypes.object.isRequired
 };
 
