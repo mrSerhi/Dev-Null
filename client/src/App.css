@@ -7,9 +7,9 @@ img {
   background: url("./img/showcase.jpg") no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: calc(100vh - 56px);
   margin-top: -24px;
-  margin-bottom: -50px;
+  /* margin-bottom: -50px; */
 }
 
 .landing-inner {
@@ -36,4 +36,19 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+
+/* global Modal styles */
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
 }
